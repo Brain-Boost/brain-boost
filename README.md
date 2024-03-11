@@ -1,4 +1,4 @@
-Bryce Fudge
-Steven Li
-Fernando Villanueva
+Bryce Fudge\
+Steven Li\
+Fernando Villanueva\
 Steven Lang
