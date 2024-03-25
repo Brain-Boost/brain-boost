@@ -22,7 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "alarm_database"
                 ).fallbackToDestructiveMigration()
-                    .allowMainThreadQueries() // This should eventually be removed.
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 instance

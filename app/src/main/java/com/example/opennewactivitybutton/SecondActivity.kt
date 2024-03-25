@@ -123,7 +123,7 @@ class AlarmClock : ComponentActivity() {
                     status = status
                 )
                 Log.d("AlarmCreate", "Setting Alarm: Label = $label, Hour = $hour, Minute = $minute, Meridian = $meridian, Status = $status")
-                alarmViewModel.insertAlarm(newAlarm) // Make sure you have this method properly implemented in your ViewModel
+                alarmViewModel.insertAlarm(newAlarm)
             }) {
                 Text("Save Alarm")
             }

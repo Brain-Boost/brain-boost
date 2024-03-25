@@ -37,7 +37,7 @@
         <!-- Register AlarmReceiver -->
         <receiver
             android:name=".ringer.AlarmReceiver"
-            android:exported="true"> <!-- Consider setting exported to true only if necessary -->
+            android:exported="true">
         </receiver>
 
     </application>

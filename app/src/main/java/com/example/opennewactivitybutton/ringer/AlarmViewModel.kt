@@ -36,7 +36,7 @@ class AlarmViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Example function to toggle an alarm's status
+    // Function to toggle an alarm's status
     fun toggleAlarmStatus(label: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val alarm = alarmDao.getAlarmById(label) ?: return@launch

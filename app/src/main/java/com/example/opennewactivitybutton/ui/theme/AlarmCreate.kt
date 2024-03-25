@@ -21,8 +21,7 @@ class AlarmCreate(private val context: Context) {
                 context.startActivity(intent)
                 return
             }
-
-
+            
             val calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
                 set(Calendar.HOUR_OF_DAY, if (alarm.meridian == "AM" && alarm.hour == 12) 0 else if (alarm.meridian == "PM" && alarm.hour < 12) alarm.hour + 12 else alarm.hour)
