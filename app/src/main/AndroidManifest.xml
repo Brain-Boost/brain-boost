@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Required for alarm scheduling on API 31+ -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,21 +17,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenNewActivityButton"
         tools:targetApi="31">
+
         <activity
             android:name=".AlarmClock"
             android:exported="false"
             android:label="@string/title_activity_second"
             android:theme="@style/Theme.OpenNewActivityButton" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.OpenNewActivityButton">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Register AlarmReceiver -->
+        <receiver
+            android:name=".ringer.AlarmReceiver"
+            android:exported="true"> <!-- Consider setting exported to true only if necessary -->
+        </receiver>
+
     </application>
 
 </manifest>
