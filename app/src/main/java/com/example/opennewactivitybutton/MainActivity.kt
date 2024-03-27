@@ -54,12 +54,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
 import com.example.opennewactivitybutton.ui.theme.darkGray
@@ -75,28 +73,8 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-        setContent {
-            // Calling the composable function
-            // to display element and its contents
-            MainContent()
-        }
-    }
-}
-
-data class NavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val badgeCount: Int? = null
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
-class NavigationDrawer : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -189,17 +167,27 @@ class NavigationDrawer : ComponentActivity() {
                                 )
                             }
                         ) {
-
                         }
                     }
                 }
             }
+            // Calling the composable function
+            // to display element and its contents
+            //MainContent()
+            MyContent()
         }
     }
-
 }
 
+data class NavigationItem(
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val badgeCount: Int? = null
+)
 
+
+/*
 // Creating a composable
 // function to display Top Bar
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -216,7 +204,7 @@ fun MainContent() {
         }
     }
 
-/*    Scaffold(
+    Scaffold(
         topBar = { TopAppBar(title = { Text("Brain Boost", color = Color.Black) }) },
         content = {
             Column (
@@ -228,8 +216,8 @@ fun MainContent() {
             //MyContent()
         }
 
-    )*/
-}
+    /
+*/
 
 // Creating a composable function to
 // create two Images and a spacer between them
@@ -476,11 +464,4 @@ enum class ClockHands {
     Seconds,
     Minutes,
     Hours
-}
-// For displaying preview in
-// the Android Studio IDE emulator
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MainContent()
 }
