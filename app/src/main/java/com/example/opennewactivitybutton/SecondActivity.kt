@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,10 +22,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +36,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.opennewactivitybutton.database.entities.Alarm
@@ -80,55 +86,99 @@ class AlarmClock : ComponentActivity() {
 
     @Composable
     fun AlarmInputForm(alarmViewModel: AlarmViewModel) {
-        // State variables to hold form input
         var label by remember { mutableStateOf("") }
         var hour by remember { mutableStateOf("") }
         var minute by remember { mutableStateOf("") }
         var meridian by remember { mutableStateOf("AM") }
         var status by remember { mutableStateOf(false) }
+        val snackbarHostState = remember { SnackbarHostState() }
+        val focusManager = LocalFocusManager.current
+
+        // Additional state to trigger Snackbar showing
+        var showSnackbar by remember { mutableStateOf(false) }
+
+        // Detect taps outside TextField to dismiss keyboard
+        val modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            }
+            .padding(16.dp) // Apply padding here if needed
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = modifier // Apply the modifier to Column
         ) {
-            OutlinedTextField(
-                value = label,
-                onValueChange = { label = it },
-                label = { Text("Label") }
-            )
-            OutlinedTextField(
-                value = hour,
-                onValueChange = { hour = it },
-                label = { Text("Hour") }
-            )
-            OutlinedTextField(
-                value = minute,
-                onValueChange = { minute = it },
-                label = { Text("Minute") }
-            )
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("AM")
-                Switch(checked = meridian == "PM", onCheckedChange = { meridian = if (it) "PM" else "AM" })
-                Text("PM")
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Alarm Status")
-                Switch(checked = status, onCheckedChange = { status = it })
-            }
-            Button(onClick = {
-                val newAlarm = Alarm(
-                    label = label,
-                    hour = hour.toIntOrNull() ?: 0,
-                    minute = minute.toIntOrNull() ?: 0,
-                    meridian = meridian,
-                    status = status
+            // Your TextFields and other UI components here
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                OutlinedTextField(
+                    value = label,
+                    onValueChange = { label = it },
+                    label = { Text("Label") }
                 )
-                Log.d("AlarmCreate", "Setting Alarm: Label = $label, Hour = $hour, Minute = $minute, Meridian = $meridian, Status = $status")
-                alarmViewModel.insertAlarm(newAlarm)
-            }) {
-                Text("Save Alarm")
+                OutlinedTextField(
+                    value = hour,
+                    onValueChange = { hour = it },
+                    label = { Text("Hour") }
+                )
+                OutlinedTextField(
+                    value = minute,
+                    onValueChange = { minute = it },
+                    label = { Text("Minute") }
+                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("AM")
+                    Switch(
+                        checked = meridian == "PM",
+                        onCheckedChange = { meridian = if (it) "PM" else "AM" })
+                    Text("PM")
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Alarm Status")
+                    Switch(checked = status, onCheckedChange = { status = it })
+                }
+                Button(onClick = {
+                    val hourChecked = hour.toIntOrNull()?.takeIf { it in 1..12 }
+                    val minuteChecked = minute.toIntOrNull()?.takeIf { it in 0..59 }
+                    if (hourChecked != null && minuteChecked != null) {
+                        val newAlarm = Alarm(
+                            label = label,
+                            hour = hourChecked,
+                            minute = minuteChecked,
+                            meridian = meridian,
+                            status = status
+                        )
+                        alarmViewModel.insertAlarm(newAlarm)
+                        Log.d("AlarmCreate", "Setting Alarm: $newAlarm")
+                        showSnackbar = true // Trigger Snackbar showing
+                    } else {
+                        // Handle validation error
+                    }
+                }) {
+                    Text("Save Alarm")
+                }
             }
+
+            // React to showSnackbar state change to show the Snackbar
+            if (showSnackbar) {
+                LaunchedEffect(snackbarHostState) {
+                    snackbarHostState.showSnackbar(
+                        message = "Alarm created successfully",
+                        actionLabel = "OK"
+                    )
+                    showSnackbar = false // Reset state after showing
+                }
+            }
+
+            // Display the Snackbar
+            SnackbarHost(hostState = snackbarHostState)
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         if (alarmRing.isPlaying()) {
