@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.database.entities
+package com.example.brainboost.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

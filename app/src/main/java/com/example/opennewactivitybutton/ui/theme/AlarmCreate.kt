@@ -1,12 +1,12 @@
-package com.example.opennewactivitybutton.ui.theme
+package com.example.brainboost.ui.theme
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.example.opennewactivitybutton.database.entities.Alarm
-import com.example.opennewactivitybutton.ringer.AlarmReceiver
+import com.example.brainboost.database.entities.Alarm
+import com.example.brainboost.ringer.AlarmReceiver
 import java.util.Calendar
 
 class AlarmCreate(private val context: Context) {

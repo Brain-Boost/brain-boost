@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.opennewactivitybutton
+package com.example.brainboost
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -36,12 +36,12 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.opennewactivitybutton.ui.theme.Pink80
-import com.example.opennewactivitybutton.ui.theme.darkGray
-import com.example.opennewactivitybutton.ui.theme.gray
-import com.example.opennewactivitybutton.ui.theme.redOrange
-import com.example.opennewactivitybutton.ui.theme.transparent
-import com.example.opennewactivitybutton.ui.theme.white
+import com.example.brainboost.ui.theme.Pink80
+import com.example.brainboost.ui.theme.darkGray
+import com.example.brainboost.ui.theme.gray
+import com.example.brainboost.ui.theme.redOrange
+import com.example.brainboost.ui.theme.transparent
+import com.example.brainboost.ui.theme.white
 import kotlinx.coroutines.delay
 import java.util.Calendar
 import java.util.Date

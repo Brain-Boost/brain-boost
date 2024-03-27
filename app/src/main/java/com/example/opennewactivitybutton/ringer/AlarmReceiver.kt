@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.ringer
+package com.example.brainboost.ringer
 
 import android.content.BroadcastReceiver
 import android.content.Context

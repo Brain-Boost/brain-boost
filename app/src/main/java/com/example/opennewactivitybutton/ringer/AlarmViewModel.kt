@@ -1,11 +1,11 @@
-package com.example.opennewactivitybutton.ringer
+package com.example.brainboost.ringer
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.opennewactivitybutton.database.AppDatabase
-import com.example.opennewactivitybutton.database.entities.Alarm
-import com.example.opennewactivitybutton.ui.theme.AlarmCreate
+import com.example.brainboost.database.AppDatabase
+import com.example.brainboost.database.entities.Alarm
+import com.example.brainboost.ui.theme.AlarmCreate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

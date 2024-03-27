@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.ringer
+package com.example.brainboost.ringer
 
 import android.content.Context
 import android.media.Ringtone

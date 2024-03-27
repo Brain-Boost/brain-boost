@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.ui.theme
+package com.example.brainboost.ui.theme
 
 data class Alarm(
     var hour: Int,

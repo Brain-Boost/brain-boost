@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.opennewactivitybutton"
+    namespace = "com.example.brainboost"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.opennewactivitybutton"
+        applicationId = "com.example.brainboost"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

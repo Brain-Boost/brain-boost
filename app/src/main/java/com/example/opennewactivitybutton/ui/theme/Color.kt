@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.ui.theme
+package com.example.brainboost.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

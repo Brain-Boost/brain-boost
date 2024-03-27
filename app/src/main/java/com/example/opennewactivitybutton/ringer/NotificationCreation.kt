@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.example.opennewactivitybutton.R
-import com.example.opennewactivitybutton.games.Stub
+import com.example.brainboost.R
+import com.example.brainboost.games.Stub
 
 class NotificationCreation(private val context: Context) {
 

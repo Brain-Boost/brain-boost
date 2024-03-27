@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.games
+package com.example.brainboost.games
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

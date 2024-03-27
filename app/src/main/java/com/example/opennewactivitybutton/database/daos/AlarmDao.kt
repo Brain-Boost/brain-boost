@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton.database.daos
+package com.example.brainboost.database.daos
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.opennewactivitybutton.database.entities.Alarm
+import com.example.brainboost.database.entities.Alarm
 
 @Dao
 interface AlarmDao {

@@ -1,11 +1,11 @@
-package com.example.opennewactivitybutton.database
+package com.example.brainboost.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.opennewactivitybutton.database.daos.AlarmDao
-import com.example.opennewactivitybutton.database.entities.Alarm
+import com.example.brainboost.database.daos.AlarmDao
+import com.example.brainboost.database.entities.Alarm
 
 @Database(entities = [Alarm::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

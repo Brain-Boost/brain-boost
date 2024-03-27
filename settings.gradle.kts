@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OpenNewActivityButton"
+rootProject.name = "brainboost"
 include(":app")
