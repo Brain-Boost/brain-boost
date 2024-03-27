@@ -59,7 +59,11 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+<<<<<<< HEAD
 import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
+=======
+import com.example.opennewactivitybutton.ui.theme.Pink80
+>>>>>>> Dev_Branch
 import com.example.opennewactivitybutton.ui.theme.darkGray
 import com.example.opennewactivitybutton.ui.theme.gray
 import com.example.opennewactivitybutton.ui.theme.redOrange
@@ -78,6 +82,11 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Dev_Branch
         setContent {
             M3NavigationDrawerTheme {
                 val items = listOf(
