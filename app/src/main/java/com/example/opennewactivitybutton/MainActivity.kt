@@ -23,6 +23,8 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -54,16 +56,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-<<<<<<< HEAD
 import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
-=======
 import com.example.opennewactivitybutton.ui.theme.Pink80
->>>>>>> Dev_Branch
 import com.example.opennewactivitybutton.ui.theme.darkGray
 import com.example.opennewactivitybutton.ui.theme.gray
 import com.example.opennewactivitybutton.ui.theme.redOrange
@@ -82,11 +82,6 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Dev_Branch
         setContent {
             M3NavigationDrawerTheme {
                 val items = listOf(
@@ -107,6 +102,21 @@ class MainActivity : ComponentActivity() {
                         unselectedIcon = Icons.Outlined.Settings,
                     ),
                 )
+                    NavigationItem(
+                        title = "Tic Tac Toe",
+                        selectedIcon = Icons.Filled.PlayArrow,
+                        unselectedIcon = Icons.Outlined.PlayArrow,
+                    )
+                    NavigationItem(
+                        title = "Memorization Game",
+                        selectedIcon = Icons.Filled.PlayArrow,
+                        unselectedIcon = Icons.Outlined.PlayArrow,
+                    )
+                    NavigationItem(
+                        title = "Wurdle",
+                        selectedIcon = Icons.Filled.PlayArrow,
+                        unselectedIcon = Icons.Outlined.PlayArrow,
+                    )
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -183,10 +193,31 @@ class MainActivity : ComponentActivity() {
             // Calling the composable function
             // to display element and its contents
             //MainContent()
-            MyContent()
+            WorkingClock()
+            TicTacToeButton()
         }
     }
 }
+@Composable
+fun TicTacToeButton(){
+
+    // Fetching the Local Context
+    val myContext = LocalContext.current
+
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Top) {
+
+        // Creating a Button that on-click
+        // implements an Intent to go to Tic Tac Toe
+        Button(onClick = {
+            myContext.startActivity(Intent(myContext, TicTacToe::class.java))
+        },
+            colors = ButtonDefaults.buttonColors(Pink80), modifier = Modifier.size(300.dp, 60.dp)
+        ) {
+            Text("Tic Tac Toe", color = Color.White)
+        }
+    }
+}
+
 
 data class NavigationItem(
     val title: String,
@@ -270,8 +301,7 @@ fun MainContent() {
 // create two Images and a spacer between them
 // Calling this function as content in the above function
 @Composable
-fun MyContent(){
-
+fun WorkingClock(){
     // Fetching the Local Context
     val myContext = LocalContext.current
     var currentTimeInMs by remember {
@@ -299,7 +329,7 @@ fun MyContent(){
             modifier = Modifier.size(300.dp, 300.dp)
         ) {
             //Text("Alarm Clock", color = Color.White)
-            Clock(time = { currentTimeInMs },
+            ClockSizing(time = { currentTimeInMs },
                 circleRadius = 350f,
                 outerCircleThickness = 25f)
         }
@@ -308,7 +338,7 @@ fun MyContent(){
 
 
 @Composable
-fun Clock(
+fun ClockSizing(
     modifier: Modifier = Modifier,
     time:()->Long,
     circleRadius:Float,

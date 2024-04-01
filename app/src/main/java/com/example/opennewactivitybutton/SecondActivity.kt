@@ -57,14 +57,14 @@ class AlarmClock : ComponentActivity() {
             Scaffold(
                 topBar = { TopAppBar(title = { Text("Brain Boost | Alarm Clock", color = Color.Black) }) },
                 content = { padding ->
-                    AlarmScreen(padding)
+                    AlarmTopLabel(padding)
                 }
             )
         }
     }
 
     @Composable
-    fun AlarmScreen(padding: PaddingValues) {
+    fun AlarmTopLabel(padding: PaddingValues) {
         Column(
             modifier = Modifier
                 .padding(padding)
