@@ -59,25 +59,19 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-<<<<<<< HEAD
 import com.example.brainboost.ui.theme.Pink80
 import com.example.brainboost.ui.theme.darkGray
 import com.example.brainboost.ui.theme.gray
 import com.example.brainboost.ui.theme.redOrange
 import com.example.brainboost.ui.theme.transparent
 import com.example.brainboost.ui.theme.white
-=======
-<<<<<<< HEAD
-import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
-=======
-import com.example.opennewactivitybutton.ui.theme.Pink80
->>>>>>> Dev_Branch
-import com.example.opennewactivitybutton.ui.theme.darkGray
-import com.example.opennewactivitybutton.ui.theme.gray
-import com.example.opennewactivitybutton.ui.theme.redOrange
-import com.example.opennewactivitybutton.ui.theme.transparent
-import com.example.opennewactivitybutton.ui.theme.white
->>>>>>> 3c7ff4ae02efb62e6bf2a0dbaaf48069f9db86f3
+import com.example.brainboost.ui.theme.M3NavigationDrawerTheme
+import com.example.brainboost.ui.theme.Pink80
+import com.example.brainboost.ui.theme.darkGray
+import com.example.brainboost.ui.theme.gray
+import com.example.brainboost.ui.theme.redOrange
+import com.example.brainboost.ui.theme.transparent
+import com.example.brainboost.ui.theme.white
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -91,11 +85,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-<<<<<<< HEAD
-=======
 
-
->>>>>>> Dev_Branch
         setContent {
             M3NavigationDrawerTheme {
                 val items = listOf(

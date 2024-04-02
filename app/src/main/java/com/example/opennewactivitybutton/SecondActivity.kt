@@ -447,6 +447,8 @@ class AlarmClock : ComponentActivity() {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    
+
                     // permissions check to set an alarm
     private fun checkScheduleExactAlarmPermission(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

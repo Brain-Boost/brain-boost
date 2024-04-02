@@ -40,10 +40,8 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+
 @Composable
-<<<<<<< HEAD
-fun brainboostTheme(
-=======
 fun M3NavigationDrawerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
@@ -76,8 +74,7 @@ fun M3NavigationDrawerTheme(
     )
 }
 @Composable
-fun OpenNewActivityButtonTheme(
->>>>>>> 3c7ff4ae02efb62e6bf2a0dbaaf48069f9db86f3
+fun brainboostTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
