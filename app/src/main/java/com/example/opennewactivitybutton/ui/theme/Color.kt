@@ -29,3 +29,14 @@ val redOrange = Color(0xFFe84a23)
 val green = Color(0xFF0ddb25)
 val blue = Color(0xFF140ddb)
 val brightBlue = Color(0xFF027cf5)
+
+object Colors {
+    val orange = Color(0xFFff6c03)
+    val tan = Color(0xFFecdbc8)
+    val brown = Color(0xFF8b482e)
+    val lightBrown = Color(0xFF9f6c4f)
+    val blueWhite = Color(0xFFd1d7f7)
+    val darkGreen = Color(0xFF058114)
+    val blueGray = Color(0xFF6281c4)
+    val lightBlue = Color(0xFFc0e2eb)
+}
