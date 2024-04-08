@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -61,8 +62,14 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryGame
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryScreen
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
 import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
+//import com.example.opennewactivitybutton.ui.theme.MemoryTheme
 import com.example.opennewactivitybutton.ui.theme.Pink80
 import com.example.opennewactivitybutton.ui.theme.TicTacToeOpener
 import com.example.opennewactivitybutton.ui.theme.darkGray
@@ -84,6 +91,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            /* Can be uncommented to see the memory game and how it plays
+            MemoryTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    val viewModel: MemoryViewModel by viewModels()
+                    MemoryScreen(viewModel = viewModel)
+                }
+            }
+            */// to this line here
+
             M3NavigationDrawerTheme {
                 val items = listOf(
                     NavigationItem(
@@ -191,10 +211,18 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+
+
+
             // Calling the composable function
             // to display element and its contents
             WorkingClock()
+            //MainContent()
+
             TicTacToeButton()
+            MemoryGameButton()
+            WorkingClock()
+
         }
     }
 }
@@ -204,16 +232,49 @@ fun TicTacToeButton(){
     // Fetching the Local Context
     val myContext = LocalContext.current
 
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Top) {
-
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
+    ) {
         // Creating a Button that on-click
         // implements an Intent to go to Tic Tac Toe
-        Button(onClick = {
-            myContext.startActivity(Intent(myContext, TicTacToeOpener::class.java))
-        },
-            colors = ButtonDefaults.buttonColors(Pink80), modifier = Modifier.size(300.dp, 60.dp)
+        Button(onClick = { myContext.startActivity(Intent(myContext, TicTacToeOpener::class.java)) },
+            colors = ButtonDefaults.buttonColors(Pink80),
+            modifier = Modifier.size(300.dp, 60.dp)
         ) {
-            Text("Tic Tac Toe", color = Color.White)
+            Text(
+                text = "Tic Tac Toe",
+                color = Color.White,
+                fontSize = 20.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun MemoryGameButton(){
+    val myContext = LocalContext.current
+
+    Column (
+        Modifier
+            .fillMaxSize()
+            .padding(80.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        Button(
+            onClick = { myContext.startActivity(Intent(myContext, MemoryGame::class.java)) },
+            colors = ButtonDefaults.buttonColors(Pink80),
+            modifier = Modifier.size(300.dp, 60.dp)
+        ) {
+            Text(
+                text = "Memory Game",
+                color = Color.White,
+                fontSize = 20.sp
+            )
         }
     }
 }
@@ -225,77 +286,6 @@ data class NavigationItem(
     val unselectedIcon: ImageVector,
     val badgeCount: Int? = null
 )
-
-
-/*
-// Creating a composable
-// function to display Top Bar
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun MainContent() {
-    var currentTimeInMs by remember {
-        mutableLongStateOf(System.currentTimeMillis())
-    }
-
-    LaunchedEffect(key1 = true){
-        while(true){
-            delay(200)
-            currentTimeInMs = System.currentTimeMillis()//clock time
-        }
-    }
-
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Brain Boost", color = Color.Black) }) },
-        content = {
-            Column (
-                modifier = Modifier.padding(16.dp)
-            ){
-                MyContent()
-                //Clock(time = { currentTimeInMs }, circleRadius = 150f, outerCircleThickness = 25f)
-            }
-            //MyContent()
-        }
-
-    /
-*/
-
-// Creating a composable function to
-// create two Images and a spacer between them
-// Calling this function as content in the above function
-/*
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun MainContent() {
-    //time for the clock
-    var currentTimeInMs by remember {
-        mutableStateOf(System.currentTimeMillis())
-    }
-
-    LaunchedEffect(key1 = true){
-        while(true){
-            delay(200)
-            currentTimeInMs = System.currentTimeMillis()//clock time
-        }
-    }
-
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Brain Boost", color = Color.Black) }) },
-        content = {
-            Column (
-                modifier = Modifier.padding(16.dp)
-            ){
-                MyContent()
-                //Clock(time = { currentTimeInMs }, circleRadius = 150f, outerCircleThickness = 25f)
-            }
-            //MyContent()
-        }
-
-    )
-
-
-
-}*/
-
 
 // Creating a composable function to
 // create two Images and a spacer between them
@@ -317,7 +307,7 @@ fun WorkingClock(){
 
     Column(Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
 
         // Creating a Button that on-click
@@ -503,4 +493,10 @@ enum class ClockHands {
     Seconds,
     Minutes,
     Hours
+}
+
+@Preview
+@Composable
+fun MMMmain(){
+    WorkingClock()
 }
