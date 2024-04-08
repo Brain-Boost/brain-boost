@@ -69,8 +69,9 @@ import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.M
 import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryScreen
 import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
 import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
-import com.example.opennewactivitybutton.ui.theme.MemoryTheme
+//import com.example.opennewactivitybutton.ui.theme.MemoryTheme
 import com.example.opennewactivitybutton.ui.theme.Pink80
+import com.example.opennewactivitybutton.ui.theme.TicTacToeOpener
 import com.example.opennewactivitybutton.ui.theme.darkGray
 import com.example.opennewactivitybutton.ui.theme.gray
 import com.example.opennewactivitybutton.ui.theme.redOrange
@@ -86,7 +87,7 @@ import kotlin.math.sin
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -121,22 +122,22 @@ class MainActivity : ComponentActivity() {
                         selectedIcon = Icons.Filled.Settings,
                         unselectedIcon = Icons.Outlined.Settings,
                     ),
-                )
                     NavigationItem(
                         title = "Tic Tac Toe",
                         selectedIcon = Icons.Filled.PlayArrow,
                         unselectedIcon = Icons.Outlined.PlayArrow,
-                    )
+                    ),
                     NavigationItem(
                         title = "Memorization Game",
                         selectedIcon = Icons.Filled.PlayArrow,
                         unselectedIcon = Icons.Outlined.PlayArrow,
-                    )
+                    ),
                     NavigationItem(
                         title = "Wurdle",
                         selectedIcon = Icons.Filled.PlayArrow,
                         unselectedIcon = Icons.Outlined.PlayArrow,
-                    )
+                    ),
+                )
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -215,6 +216,7 @@ class MainActivity : ComponentActivity() {
 
             // Calling the composable function
             // to display element and its contents
+            WorkingClock()
             //MainContent()
 
             TicTacToeButton()
@@ -239,7 +241,7 @@ fun TicTacToeButton(){
     ) {
         // Creating a Button that on-click
         // implements an Intent to go to Tic Tac Toe
-        Button(onClick = { myContext.startActivity(Intent(myContext, TicTacToe::class.java)) },
+        Button(onClick = { myContext.startActivity(Intent(myContext, TicTacToeOpener::class.java)) },
             colors = ButtonDefaults.buttonColors(Pink80),
             modifier = Modifier.size(300.dp, 60.dp)
         ) {

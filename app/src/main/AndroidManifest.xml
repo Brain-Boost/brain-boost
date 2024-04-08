@@ -20,8 +20,9 @@
         android:theme="@style/Theme.OpenNewActivityButton"
         tools:targetApi="31">
 
+
         <activity
-            android:name=".TicTacToe"
+            android:name=".ui.theme.TicTacToeOpener"
             android:exported="false"
             android:label="@string/title_activity_tic_tac_toe"
             android:theme="@style/Theme.OpenNewActivityButton" />
