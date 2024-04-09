@@ -11,8 +11,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
-
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,13 +23,21 @@
         tools:targetApi="31">
 
         <activity
+            android:name=".TicTacToe"
+            android:exported="true"
+            android:label="@string/title_activity_tic_tac_toe"
+            android:theme="@style/Theme.brainboost" />
+        <activity
             android:name=".AlarmClock"
             android:exported="false"
             android:label="@string/title_activity_second"
             android:theme="@style/Theme.brainboost" />
+        <activity
+            android:name=".memoryGame.memoryFeature.presentation.MemoryGame"
+            android:exported="true" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".HomePage"
             android:exported="true"
             android:theme="@style/Theme.brainboost">
             <intent-filter>
