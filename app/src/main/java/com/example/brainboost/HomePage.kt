@@ -67,6 +67,7 @@ import androidx.compose.ui.unit.sp
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.brainboost.ui.theme.M3NavigationDrawerTheme
 import com.example.brainboost.ui.theme.Pink80
+import com.example.brainboost.ui.theme.TicTacToeOpener
 import com.example.brainboost.ui.theme.darkGray
 import com.example.brainboost.ui.theme.gray
 import com.example.brainboost.ui.theme.redOrange
@@ -79,6 +80,7 @@ import java.util.Date
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 class HomePage : ComponentActivity() {
@@ -236,7 +238,7 @@ fun TicTacToeButton(){
     ) {
         // Creating a Button that on-click
         // implements an Intent to go to Tic Tac Toe
-        Button(onClick = { myContext.startActivity(Intent(myContext, TicTacToe::class.java)) },
+        Button(onClick = { myContext.startActivity(Intent(myContext, TicTacToeOpener::class.java)) },
             colors = ButtonDefaults.buttonColors(Pink80),
             modifier = Modifier.size(300.dp, 60.dp)
         ) {

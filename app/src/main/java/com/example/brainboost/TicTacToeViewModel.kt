@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton
+package com.example.brainboost
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

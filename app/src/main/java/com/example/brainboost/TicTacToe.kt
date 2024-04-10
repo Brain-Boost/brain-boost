@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton
+package com.example.brainboost
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.brainboost.ringer.AlarmRing
 
 @Composable
 fun Tictactoe(
@@ -32,6 +33,12 @@ fun Tictactoe(
         val turn = if(state.isXTurn) "X's Turn" else "O's Turn"
         val turnMessage = "Tic Tac Toe\nIt is $turn"
         val winner = state.victor
+        if (winner != null) {
+            lateinit var alarmRing: AlarmRing
+            if (alarmRing.isPlaying()) {
+                alarmRing.stopRingtone()
+            }
+        }
         val winnerMessage = "Tic Tac Toe\n$winner Wins"
         Text(
             text = if(winner != null) winnerMessage else turnMessage,

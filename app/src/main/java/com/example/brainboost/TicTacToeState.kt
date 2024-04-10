@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton
+package com.example.brainboost
 
 data class TicTicToeState(
     val buttonValues: Array<String> = arrayOf("-","-","-","-","-","-","-","-","-"),

@@ -6,7 +6,7 @@ import android.content.Intent
 import android.util.Log
 import com.example.brainboost.Push
 import com.example.brainboost.R
-import com.example.brainboost.TicTacToe
+import com.example.brainboost.ui.theme.TicTacToeOpener
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -29,7 +29,7 @@ class AlarmReceiver : BroadcastReceiver() {
             )
 
             // Prepare Intents
-            val tttIntent = Intent(context, TicTacToe::class.java)
+            val tttIntent = Intent(context, TicTacToeOpener::class.java)
 
             pushNotificationHelper.createNotificationWithActions(
                 channelId = "test_channel_id",
