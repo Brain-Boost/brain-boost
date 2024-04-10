@@ -1,4 +1,4 @@
-package com.example.opennewactivitybutton
+package com.example.brainboost
 
 import org.junit.Test
 

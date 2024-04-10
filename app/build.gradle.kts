@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.opennewactivitybutton"
+    namespace = "com.example.brainboost"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.opennewactivitybutton"
+        applicationId = "com.example.brainboost"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -62,6 +62,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.room:room-common:2.6.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -71,6 +72,8 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0") // Check for the latest version
+
 
     // ROOM
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
