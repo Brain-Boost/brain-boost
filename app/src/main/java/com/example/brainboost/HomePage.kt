@@ -1,33 +1,41 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.brainboost
+package com.example.opennewactivitybutton
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -64,15 +72,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
-import com.example.brainboost.ui.theme.M3NavigationDrawerTheme
-import com.example.brainboost.ui.theme.Pink80
-import com.example.brainboost.ui.theme.TicTacToeOpener
-import com.example.brainboost.ui.theme.darkGray
-import com.example.brainboost.ui.theme.gray
-import com.example.brainboost.ui.theme.redOrange
-import com.example.brainboost.ui.theme.transparent
-import com.example.brainboost.ui.theme.white
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryEvent
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryGame
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryScreen
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
+import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
+//import com.example.opennewactivitybutton.ui.theme.MemoryTheme
+import com.example.opennewactivitybutton.ui.theme.Pink80
+import com.example.opennewactivitybutton.ui.theme.TicTacToeOpener
+import com.example.opennewactivitybutton.ui.theme.brightBlue
+import com.example.opennewactivitybutton.ui.theme.darkGray
+import com.example.opennewactivitybutton.ui.theme.gray
+import com.example.opennewactivitybutton.ui.theme.redOrange
+import com.example.opennewactivitybutton.ui.theme.transparent
+import com.example.opennewactivitybutton.ui.theme.white
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -81,26 +94,12 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-
 @OptIn(ExperimentalMaterial3Api::class)
-class HomePage : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-            /* Can be uncommented to see the memory game and how it plays
-            MemoryTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val viewModel: MemoryViewModel by viewModels()
-                    MemoryScreen(viewModel = viewModel)
-                }
-            }
-            */// to this line here
 
             M3NavigationDrawerTheme {
                 val items = listOf(
@@ -120,22 +119,22 @@ class HomePage : ComponentActivity() {
                         selectedIcon = Icons.Filled.Settings,
                         unselectedIcon = Icons.Outlined.Settings,
                     ),
-                )
                     NavigationItem(
                         title = "Tic Tac Toe",
                         selectedIcon = Icons.Filled.PlayArrow,
                         unselectedIcon = Icons.Outlined.PlayArrow,
-                    )
+                    ),
                     NavigationItem(
                         title = "Memorization Game",
                         selectedIcon = Icons.Filled.PlayArrow,
                         unselectedIcon = Icons.Outlined.PlayArrow,
-                    )
+                    ),
                     NavigationItem(
                         title = "Wurdle",
                         selectedIcon = Icons.Filled.PlayArrow,
                         unselectedIcon = Icons.Outlined.PlayArrow,
-                    )
+                    ),
+                )
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -214,10 +213,13 @@ class HomePage : ComponentActivity() {
 
             // Calling the composable function
             // to display element and its contents
+            //WorkingClock()
             //MainContent()
 
-            TicTacToeButton()
-            MemoryGameButton()
+
+            ButtonStack()
+
+
             WorkingClock()
 
         }
@@ -276,6 +278,61 @@ fun MemoryGameButton(){
     }
 }
 
+@Composable
+fun ButtonStack(
+    modifier: Modifier = Modifier
+) {
+    val myContext = LocalContext.current
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Card (
+            modifier = Modifier
+                .fillMaxWidth(.7f)
+        ) {
+            Row (
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = { myContext.startActivity(Intent(myContext, TicTacToeOpener::class.java)) },
+                    colors = ButtonDefaults.buttonColors(brightBlue),
+                    modifier = Modifier.size(600.dp, 80.dp)
+                ) {
+                    Text(
+                        text = "Tic Tac Toe",
+                        color = Color.White,
+                        fontSize = 30.sp
+                    )
+                }
+            }
+            Row (
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 40.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = { myContext.startActivity(Intent(myContext, MemoryGame::class.java)) },
+                    colors = ButtonDefaults.buttonColors(brightBlue),
+                    modifier = Modifier.size(600.dp, 80.dp)
+                ) {
+                    Text(
+                        text = "Memory Game",
+                        color = Color.White,
+                        fontSize = 30.sp
+                    )
+                }
+            }
+        }
+    }
+}
+
 
 data class NavigationItem(
     val title: String,
@@ -308,7 +365,7 @@ fun WorkingClock(){
     ) {
 
         // Creating a Button that on-click
-        // implements an Intent to go to AlarmPage
+        // implements an Intent to go to SecondActivity
         Button(onClick = {
             myContext.startActivity(Intent(myContext, AlarmClock::class.java))
         },
