@@ -3,6 +3,8 @@ package com.example.brainboost.ringer
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brainboost.database.AppDatabase
 import com.example.brainboost.database.entities.Alarm
@@ -13,6 +15,8 @@ import kotlinx.coroutines.launch
 class AlarmViewModel(application: Application) : AndroidViewModel(application) {
     private val alarmCreate = AlarmCreate(application)
     private val alarmDao = AppDatabase.getDatabase(application).alarmDao()
+    val latestAlarm: LiveData<Alarm?> = alarmDao.getLatestAlarm().asLiveData()
+
 
     // Function to insert a new alarm into the database and schedule it
     fun insertAlarm(alarm: Alarm) {
@@ -51,4 +55,6 @@ class AlarmViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+
 }
