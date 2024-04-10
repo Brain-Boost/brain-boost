@@ -56,5 +56,14 @@ class AlarmViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Function to delete the latest alarm
+    fun deleteLatestAlarm() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val alarm = latestAlarm.value ?: return@launch  // Make sure there's an alarm to delete
+            alarmDao.deleteAlarm(alarm)
+            alarmCreate.cancelAlarm(alarm.label)
+        }
+    }
+
 
 }

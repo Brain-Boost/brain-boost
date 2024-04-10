@@ -16,7 +16,7 @@ class AlarmReceiver : BroadcastReceiver() {
             Log.d("AlarmClock", "after ringtone push code complete...")
 
             Log.d("AlarmClock", "Alarm received!")
-            val alarmRing = AlarmRing(it)
+            val alarmRing = AlarmRing.getInstance(context)
             Log.d("AlarmClock", "Before ringtone!")
             alarmRing.playRingtone()
             Log.d("AlarmClock", "After ringtone!")

@@ -1,6 +1,7 @@
 package com.example.brainboost
 
 import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -52,6 +53,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.brainboost.database.entities.Alarm
+import com.example.brainboost.ringer.AlarmReceiver
 import com.example.brainboost.ringer.AlarmRing
 import com.example.brainboost.ringer.AlarmViewModel
 
@@ -67,18 +69,11 @@ class AlarmClock : ComponentActivity() {
             // AlarmClockApp() // Assuming you'll use this in the final version
             AlarmClockDisplay(alarmViewModel)
 
-            //DisplayLatestAlarm(alarmViewModel = alarmViewModel)
         }
     }
 
-    private fun createAnAlarm(
-        context: Context,
-        label: String,
-        hour: Int,
-        minute: Int,
-        meridian: String,
-        status: Boolean
-    ) {
+
+    private fun createAnAlarm(context: Context, label: String, hour: Int, minute: Int, meridian: String, status: Boolean) {
         val newAlarm = Alarm(
             label = label,
             hour = hour,
@@ -90,7 +85,6 @@ class AlarmClock : ComponentActivity() {
         alarmViewModel.insertAlarm(newAlarm)
         Log.d("AlarmClock", "alarm sent to alarmviewmodel with $newAlarm")
     }
-
 
     //lightBlue color code
     private val lightBlue = Color(0xFFADD8E6)
@@ -132,13 +126,6 @@ class AlarmClock : ComponentActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (alarmRing.isPlaying()) {
-            alarmRing.stopRingtone()
-        }
-    }
-
 
 // This function sets the layout and is able to display 3 alarms at once.
 // At this point it has the ability to display 1 alarm, and I will implement
@@ -147,12 +134,14 @@ class AlarmClock : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
+
     fun AlarmClockDisplay(alarmViewModel: AlarmViewModel) {
         val context = LocalContext.current
         var numberOfHours by remember { mutableStateOf(1) }
         var numberOfMinutes by remember { mutableStateOf(0) }
         var mSelectedText by remember { mutableStateOf("AM") }
         var mCheckedState by remember { mutableStateOf(false) }
+
 
         Scaffold(
             topBar = {
@@ -178,7 +167,27 @@ class AlarmClock : ComponentActivity() {
                     mSelectedText = mSelectedText,
                     onSelectedTextChange = { mSelectedText = it },
                     mCheckedState = mCheckedState,
-                    onCheckedChange = { mCheckedState = it }
+                    onCheckedChange = { isChecked ->
+                        mCheckedState = isChecked
+                        val message = if (isChecked) "Alarm is turned on" else "Alarm is turned off"
+                        showToastForAlarmStatus(context, message)
+                        if (isChecked) {
+                            // Using the hoisted state directly
+                            Log.d("AlarmClock", "Entered the alarm is checked to create alarm")
+                            Log.d("AlarmClock", "hour is $numberOfHours but numberOfHours is $numberOfHours")
+                            Log.d("AlarmClock", "hour is $numberOfMinutes but numberOfMinutes is $numberOfMinutes")
+                            createAnAlarm(
+                                context = context,
+                                label = "Alarm !",
+                                hour = numberOfHours,
+                                minute = numberOfMinutes,
+                                meridian = mSelectedText, // This should reflect the latest AM/PM selection
+                                status = mCheckedState
+                            )
+
+                        }
+                    }
+
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -313,14 +322,24 @@ class AlarmClock : ComponentActivity() {
     @Composable
     fun DisplayLatestAlarm(alarmViewModel: AlarmViewModel) {
         val latestAlarm by alarmViewModel.latestAlarm.observeAsState()
+        val context = LocalContext.current
 
         latestAlarm?.let { alarm ->
             Column(modifier = Modifier.padding(16.dp)) {
                 Text("Current Alarm: ${alarm.hour}:${alarm.minute} ${alarm.meridian}")
+
+                Button(onClick = { deleteLatestAlarm(context, alarm, alarmViewModel) }) {
+                    Text("Delete Alarm")
+                }
             }
         } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp))
     }
 }
 
+private fun deleteLatestAlarm(context: Context, alarm: Alarm, alarmViewModel: AlarmViewModel) {
 
+    alarmViewModel.deleteLatestAlarm()
+
+    Toast.makeText(context, "Deleted Alarm: ${alarm.hour}:${alarm.minute} ${alarm.meridian}", Toast.LENGTH_LONG).show()
+}
 

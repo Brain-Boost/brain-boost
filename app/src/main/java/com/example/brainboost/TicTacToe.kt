@@ -22,7 +22,9 @@ import com.example.brainboost.ringer.AlarmRing
 @Composable
 fun Tictactoe(
     modifier: Modifier = Modifier,
-    viewModel: TicTacToeViewModel = TicTacToeViewModel()
+    viewModel: TicTacToeViewModel = TicTacToeViewModel(),
+    alarmRing: AlarmRing // added - SJL
+
 ){
     val state = viewModel.state.value
     Column(
@@ -33,12 +35,14 @@ fun Tictactoe(
         val turn = if(state.isXTurn) "X's Turn" else "O's Turn"
         val turnMessage = "Tic Tac Toe\nIt is $turn"
         val winner = state.victor
+
+        // alarm kill code - SJL
         if (winner != null) {
-            lateinit var alarmRing: AlarmRing
             if (alarmRing.isPlaying()) {
                 alarmRing.stopRingtone()
             }
         }
+
         val winnerMessage = "Tic Tac Toe\n$winner Wins"
         Text(
             text = if(winner != null) winnerMessage else turnMessage,
