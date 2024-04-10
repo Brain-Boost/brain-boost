@@ -9,14 +9,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
@@ -25,10 +29,13 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -65,6 +72,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryEvent
 import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryScreen
 import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
@@ -72,6 +80,7 @@ import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
 //import com.example.opennewactivitybutton.ui.theme.MemoryTheme
 import com.example.opennewactivitybutton.ui.theme.Pink80
 import com.example.opennewactivitybutton.ui.theme.TicTacToeOpener
+import com.example.opennewactivitybutton.ui.theme.brightBlue
 import com.example.opennewactivitybutton.ui.theme.darkGray
 import com.example.opennewactivitybutton.ui.theme.gray
 import com.example.opennewactivitybutton.ui.theme.redOrange
@@ -91,18 +100,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            /* Can be uncommented to see the memory game and how it plays
-            MemoryTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val viewModel: MemoryViewModel by viewModels()
-                    MemoryScreen(viewModel = viewModel)
-                }
-            }
-            */// to this line here
 
             M3NavigationDrawerTheme {
                 val items = listOf(
@@ -216,11 +213,13 @@ class MainActivity : ComponentActivity() {
 
             // Calling the composable function
             // to display element and its contents
-            WorkingClock()
+            //WorkingClock()
             //MainContent()
 
-            TicTacToeButton()
-            MemoryGameButton()
+
+            ButtonStack()
+
+
             WorkingClock()
 
         }
@@ -275,6 +274,61 @@ fun MemoryGameButton(){
                 color = Color.White,
                 fontSize = 20.sp
             )
+        }
+    }
+}
+
+@Composable
+fun ButtonStack(
+    modifier: Modifier = Modifier
+) {
+    val myContext = LocalContext.current
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Card (
+            modifier = Modifier
+                .fillMaxWidth(.7f)
+        ) {
+            Row (
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = { myContext.startActivity(Intent(myContext, TicTacToeOpener::class.java)) },
+                    colors = ButtonDefaults.buttonColors(brightBlue),
+                    modifier = Modifier.size(600.dp, 80.dp)
+                ) {
+                    Text(
+                        text = "Tic Tac Toe",
+                        color = Color.White,
+                        fontSize = 30.sp
+                    )
+                }
+            }
+            Row (
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 40.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = { myContext.startActivity(Intent(myContext, MemoryGame::class.java)) },
+                    colors = ButtonDefaults.buttonColors(brightBlue),
+                    modifier = Modifier.size(600.dp, 80.dp)
+                ) {
+                    Text(
+                        text = "Memory Game",
+                        color = Color.White,
+                        fontSize = 30.sp
+                    )
+                }
+            }
         }
     }
 }
