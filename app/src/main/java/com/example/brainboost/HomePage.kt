@@ -85,6 +85,7 @@ class HomePage : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             /* Can be uncommented to see the memory game and how it plays
             MemoryTheme {

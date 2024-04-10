@@ -1,6 +1,4 @@
 package com.example.brainboost
-// This class is for push notifications
-// When the alarm goes off, it will pop up with button choices for the user to choose a game
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -15,56 +13,43 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
 class Push(private val context: Context) {
-    companion object {
-        private const val CHANNEL_ID = "brainboost_notification_channel"
-        private const val NOTIFICATION_ID = 1
-    }
-
-    init {
-        createNotificationChannel()
-    }
-
-    private fun createNotificationChannel() {
+    fun createNotificationChannel(channelId: String, channelName: String, channelDescription: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = "Game Notification Channel"
-            val channelDescription = "Notifications for game challenges"
-            val channel = NotificationChannel(CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_DEFAULT).apply {
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance).apply {
                 description = channelDescription
+                lockscreenVisibility = NotificationManager.IMPORTANCE_HIGH // Use NotificationManager for constants
             }
-            val notificationManager = context.getSystemService(NotificationManager::class.java)
+            val notificationManager: NotificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
-    fun showGameNotification() {
-        val intent = Intent(context, TicTacToe::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID).apply {
-            setSmallIcon(R.drawable.ic_launcher_foreground) // Make sure you have this icon in your drawable folder
-            setContentTitle("Time to play Tic Tac Toe!")
-            setContentText("Tap to start playing.")
-            priority = NotificationCompat.PRIORITY_DEFAULT
-            setContentIntent(pendingIntent)
-            setAutoCancel(true)
-        }
-
-        if (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+    fun createNotificationWithActions(
+        channelId: String, notificationId: Int, title: String, content: String,
+        icon: Int, tttIntent: Intent,
+        tttLabel: String,
+        tttIcon: Int
+    ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Request permission or handle lack of permission
             return
         }
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notificationBuilder.build())
+
+        val tttButton = PendingIntent.getActivity(context, 0, tttIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+        val builder = NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(icon)
+            .setContentTitle(title)
+            .setContentText(content)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .addAction(tttIcon, tttLabel, tttButton)
+            .setAutoCancel(true)
+
+        with(NotificationManagerCompat.from(context)) {
+            notify(notificationId, builder.build())
+        }
     }
 }

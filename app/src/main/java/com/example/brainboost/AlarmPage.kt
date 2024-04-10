@@ -44,15 +44,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.toSize
 import com.example.brainboost.database.entities.Alarm
 import com.example.brainboost.ringer.AlarmRing
 import com.example.brainboost.ringer.AlarmViewModel
@@ -70,6 +67,19 @@ class AlarmClock : ComponentActivity() {
             AlarmClockDisplay()
         }
     }
+    private fun createAnAlarm(context: Context, label: String, hour: Int, minute: Int, meridian: String, status: Boolean) {
+        val newAlarm = Alarm(
+            label = label,
+            hour = hour,
+            minute = minute,
+            meridian = meridian,
+            status = status
+        )
+        // Now, alarmViewModel should be accessible here
+        alarmViewModel.insertAlarm(newAlarm)
+        Log.d("AlarmClock", "alarm sent to alarmviewmodel with $newAlarm")
+    }
+
 
     //lightBlue color code
     private val lightBlue = Color(0xFFADD8E6)
@@ -175,7 +185,7 @@ class AlarmClock : ComponentActivity() {
     }
 
     @Composable
-    private fun callIndividualAlarm(
+    fun callIndividualAlarm(
         numberOfHours: Int,
         onHoursChange: (Int) -> Unit,
         numberOfMinutes: Int,
@@ -250,43 +260,38 @@ class AlarmClock : ComponentActivity() {
                 Text(text = "M", color = Color.Gray)
 
 
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                var mExpanded by remember { mutableStateOf(false) }
-                val mOptions = listOf("AM", "PM")
-                var mSelectedText by remember { mutableStateOf("") }
-                var mTextFieldSize by remember { mutableStateOf(Size.Zero) }
+                // Dropdown for AM/PM Selection
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    var mExpanded by remember { mutableStateOf(false) }
+                    val mOptions = listOf("AM", "PM")
 
-                val icon = if (mExpanded)
-                    Icons.Filled.KeyboardArrowUp
-                else
-                    Icons.Filled.KeyboardArrowDown
-
-                Row(modifier = Modifier.padding(all = 10.dp)) {
-                    //Text(text = "Row 1")
-                    OutlinedTextField(value = mSelectedText, onValueChange = { /*mSelectedText = it*/ },
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .onGloballyPositioned { coordinates ->
-                                mTextFieldSize = coordinates.size.toSize()
-                            },
-                        label = {Text("AM/PM")},
-                        readOnly = true,
+                    val icon = if (mExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
+                    OutlinedTextField(
+                        value = mSelectedText,
+                        onValueChange = {},
+                        label = { Text("AM/PM") },
                         trailingIcon = {
-                            Icon(icon, "contentDescription",
-                                Modifier.clickable { mExpanded = !mExpanded})
-                        }
+                            Icon(icon, "contentDescription", Modifier.clickable { mExpanded = !mExpanded })
+                        },
+                        readOnly = true,
+                        modifier = Modifier.clickable { mExpanded = true }
                     )
 
-                    DropdownMenu(expanded = mExpanded, onDismissRequest = { mExpanded = false }
+                    DropdownMenu(
+                        expanded = mExpanded,
+                        onDismissRequest = { mExpanded = false }
                     ) {
                         mOptions.forEach { label ->
-                            DropdownMenuItem(text = { Text(text = label) }, onClick = {
-                                mSelectedText = label
-                                mExpanded = false
-                            })
+                            DropdownMenuItem(
+                                onClick = {
+                                    onSelectedTextChange(label)
+                                    mExpanded = false
+                                },
+                                text = { Text(text = label) }
+                            )
                         }
                     }
                 }
@@ -315,17 +320,7 @@ class AlarmClock : ComponentActivity() {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun createAnAlarm(context: Context, label: String, hour: Int, minute: Int, meridian: String, status: Boolean) {
-        val newAlarm = Alarm(
-            label = label,
-            hour = hour,
-            minute = minute,
-            meridian = meridian,
-            status = status
-        )
-        alarmViewModel.insertAlarm(newAlarm)
-        Log.d("AlarmClock", "alarm sent to alarmviewmodel with $newAlarm")
-    }
+
 
     // permissions check to set an alarm
     private fun checkScheduleExactAlarmPermission(context: Context): Boolean {
@@ -343,4 +338,5 @@ class AlarmClock : ComponentActivity() {
             context.startActivity(intent) // Use context to call startActivity
         }
     }
-}
+
+
