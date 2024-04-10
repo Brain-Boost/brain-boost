@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.opennewactivitybutton
+package com.example.brainboost
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -72,20 +72,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryEvent
-import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.MemoryGame
-import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryScreen
-import com.example.opennewactivitybutton.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
-import com.example.opennewactivitybutton.ui.theme.M3NavigationDrawerTheme
-//import com.example.opennewactivitybutton.ui.theme.MemoryTheme
-import com.example.opennewactivitybutton.ui.theme.Pink80
-import com.example.opennewactivitybutton.ui.theme.TicTacToeOpener
-import com.example.opennewactivitybutton.ui.theme.brightBlue
-import com.example.opennewactivitybutton.ui.theme.darkGray
-import com.example.opennewactivitybutton.ui.theme.gray
-import com.example.opennewactivitybutton.ui.theme.redOrange
-import com.example.opennewactivitybutton.ui.theme.transparent
-import com.example.opennewactivitybutton.ui.theme.white
+import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryEvent
+import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
+import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen.MemoryScreen
+import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
+import com.example.brainboost.ui.theme.M3NavigationDrawerTheme
+//import com.example.brainboost.ui.theme.MemoryTheme
+import com.example.brainboost.ui.theme.Pink80
+import com.example.brainboost.ui.theme.TicTacToeOpener
+import com.example.brainboost.ui.theme.brightBlue
+import com.example.brainboost.ui.theme.darkGray
+import com.example.brainboost.ui.theme.gray
+import com.example.brainboost.ui.theme.redOrange
+import com.example.brainboost.ui.theme.transparent
+import com.example.brainboost.ui.theme.white
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -95,7 +95,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @OptIn(ExperimentalMaterial3Api::class)
-class MainActivity : ComponentActivity() {
+class HomePage : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
