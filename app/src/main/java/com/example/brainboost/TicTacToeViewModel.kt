@@ -3,18 +3,23 @@ package com.example.brainboost
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class TicTacToeViewModel: ViewModel() {
     private val _state = mutableStateOf(TicTicToeState())
     val state: State<TicTicToeState> = _state
+    private val viewModelScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     fun setButton(id: Int) {
         if(_state.value.victor == null && _state.value.buttonValues[id] == "-" && _state.value.isXTurn) {
             updateBoard(id, "X")
-            // Check if the game is over after "X" move, if not, let "O" make a move
+            // Check if the game is over after "X" move, if not, let "O" make a move after 1 second delay
             if (!isGameOver() && !_state.value.isXTurn) {
-                makeRandomMove()
+                viewModelScope.launch {
+                    delay(1000) // Delay for 1 second before placing "O"
+                    makeRandomMove()
+                }
             }
         }
     }
@@ -40,12 +45,9 @@ class TicTacToeViewModel: ViewModel() {
     }
 
     private fun isGameOver(): Boolean {
-        if(rowHasWinner(1) || rowHasWinner(2) || rowHasWinner(3) ||
-            columnHasWinner(1) || columnHasWinner(2) || columnHasWinner(3) ||
-            firstDiagonalHasWinner() || secondDiagonalHasWinner()) {
-            return true
-        }
-        return false
+        return rowHasWinner(1) || rowHasWinner(2) || rowHasWinner(3) ||
+                columnHasWinner(1) || columnHasWinner(2) || columnHasWinner(3) ||
+                firstDiagonalHasWinner() || secondDiagonalHasWinner()
     }
 
     private fun rowHasWinner(rowId: Int): Boolean {
@@ -90,5 +92,10 @@ class TicTacToeViewModel: ViewModel() {
 
     fun resetBoard() {
         _state.value = TicTicToeState()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
 }
