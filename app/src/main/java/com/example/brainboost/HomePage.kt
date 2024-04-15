@@ -96,6 +96,7 @@ import kotlin.math.sin
 
 @OptIn(ExperimentalMaterial3Api::class)
 class HomePage : ComponentActivity() {
+
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,7 +138,8 @@ class HomePage : ComponentActivity() {
                 )
 
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -218,8 +220,6 @@ class HomePage : ComponentActivity() {
 
 
             ButtonStack()
-
-
             WorkingClock()
 
         }
@@ -547,10 +547,4 @@ enum class ClockHands {
     Seconds,
     Minutes,
     Hours
-}
-
-@Preview
-@Composable
-fun MMMmain(){
-    WorkingClock()
 }
