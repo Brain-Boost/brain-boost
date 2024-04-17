@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import com.example.brainboost.Push
 import com.example.brainboost.R
+import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.brainboost.ui.theme.TicTacToeOpener
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -24,22 +25,30 @@ class AlarmReceiver : BroadcastReceiver() {
             val pushNotificationHelper = Push(context)
             pushNotificationHelper.createNotificationChannel(
                 channelId = "test_channel_id",
-                channelName = "Test Channel",
-                channelDescription = "This is a test notification channel"
+                channelName = "Brain Boost Alarm",
+                channelDescription = "This is channel is for notifying players of available games when Brain Boost alarms ring."
             )
 
             // Prepare Intents
             val tttIntent = Intent(context, TicTacToeOpener::class.java)
+            val memIntent = Intent(context, MemoryGame::class.java)
+            // val wurdIntent = Intent(context, <insert wurdle game>::class.java)
 
             pushNotificationHelper.createNotificationWithActions(
                 channelId = "test_channel_id",
                 notificationId = 1,
                 title = "Test Notification",
-                content = "This is a test notification with actions.",
+                content = "It's Brain Boost time! Win one of these game to shut off the alarm!",
                 icon = R.drawable.ic_launcher_foreground,
                 tttIntent = tttIntent,
-                tttLabel = "Play TiC-Tac-Toe",
-                tttIcon = R.drawable.ic_launcher_foreground
+                tttLabel = "Play a game of Tic-Tac-Toe",
+                tttIcon = R.drawable.ic_launcher_foreground,
+                memIntent = memIntent,
+                memLabel = "Play a Memorization Game",
+                memIcon = R.drawable.ic_launcher_foreground
+                // wurdIntent = memIntent,
+                // wurdLabel = "Play some Wurdle",
+                // wurdIcon = R.drawable.ic_launcher_foreground
             )
         }
     }

@@ -30,7 +30,13 @@ class Push(private val context: Context) {
         channelId: String, notificationId: Int, title: String, content: String,
         icon: Int, tttIntent: Intent,
         tttLabel: String,
-        tttIcon: Int
+        tttIcon: Int,
+        memIntent: Intent,
+        memLabel: String,
+        // wurdLabel: String,
+        // wurdIntent: Intent,
+        // wurdIcon: Int,
+        memIcon: Int
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -39,6 +45,9 @@ class Push(private val context: Context) {
         }
 
         val tttButton = PendingIntent.getActivity(context, 0, tttIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val memButton = PendingIntent.getActivity(context, 0, memIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        // val wurdButton = PendingIntent.getActivity(context, 0, wurdIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(icon)
@@ -46,6 +55,8 @@ class Push(private val context: Context) {
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .addAction(tttIcon, tttLabel, tttButton)
+            .addAction(memIcon, memLabel, memButton)
+            // .addAction(wurdIcon, wurdLabel, wurdButton)
             .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(context)) {
