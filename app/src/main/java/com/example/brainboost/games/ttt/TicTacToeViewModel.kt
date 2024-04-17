@@ -1,89 +1,101 @@
 package com.example.brainboost
 
+import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.*
+import kotlin.random.Random
 
 class TicTacToeViewModel: ViewModel() {
     private val _state = mutableStateOf(TicTicToeState())
     val state: State<TicTicToeState> = _state
+    private val viewModelScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     fun setButton(id: Int) {
-        if(_state.value.victor == null) {
-            if (_state.value.buttonValues[id].equals("-")) {
-                val buttons = _state.value.buttonValues.copyOf()
-                if (_state.value.isXTurn) {
-                    buttons[id] = "X"
-                } else {
-                    buttons[id] = "O"
+        if(_state.value.victor == null && _state.value.buttonValues[id] == "-" && _state.value.isXTurn) {
+            updateBoard(id, "X")
+            // Check if the game is over after "X" move, if not, let "O" make a move after 1 second delay
+            if (!isGameOver() && !_state.value.isXTurn) {
+                viewModelScope.launch {
+                    delay(1000) // Delay for 1 second before placing "O"
+                    makeRandomMove()
                 }
-                _state.value = _state.value.copy(
-                    buttonValues = buttons,
-                    isXTurn = !_state.value.isXTurn
-                )
             }
         }
-        isGameOver()
+    }
+
+    private fun updateBoard(position: Int, player: String) {
+        val buttons = _state.value.buttonValues.copyOf()
+        buttons[position] = player
+        _state.value = _state.value.copy(
+            buttonValues = buttons,
+            isXTurn = !_state.value.isXTurn
+        )
+    }
+
+    private fun makeRandomMove() {
+        val availablePositions = _state.value.buttonValues.mapIndexedNotNull { index, value ->
+            if (value == "-") index else null
+        }
+        if (availablePositions.isNotEmpty()) {
+            val randomPosition = availablePositions[Random.nextInt(availablePositions.size)]
+            updateBoard(randomPosition, "O")
+            isGameOver()
+        }
     }
 
     private fun isGameOver(): Boolean {
-        if(rowHasWinner(1) || rowHasWinner(2) || rowHasWinner(3)){
-            return true
-        }else if (columnHasWinner(1) || columnHasWinner(2) || columnHasWinner(3)){
-            return true
-        }else if(firstDiagonalHasWinner() || secondDiagonalHasWinner()){
-            return true
-        }
-        return false
+        return rowHasWinner(1) || rowHasWinner(2) || rowHasWinner(3) ||
+                columnHasWinner(1) || columnHasWinner(2) || columnHasWinner(3) ||
+                firstDiagonalHasWinner() || secondDiagonalHasWinner()
     }
 
-    private fun rowHasWinner(rowId: Int): Boolean{
+    private fun rowHasWinner(rowId: Int): Boolean {
         val third = (rowId * 3) - 1
         val second = third - 1
         val first = second - 1
-        return compareSpaces(first,second,third)
+        return compareSpaces(first, second, third)
     }
 
-    private fun columnHasWinner(columnId: Int): Boolean{
-        val first = columnId -1
+    private fun columnHasWinner(columnId: Int): Boolean {
+        val first = columnId - 1
         val second = first + 3
         val third = first + 6
-        return compareSpaces(first,second,third)
+        return compareSpaces(first, second, third)
     }
 
-    private fun firstDiagonalHasWinner(): Boolean{
-        return compareSpaces(0,4,8)
+    private fun firstDiagonalHasWinner(): Boolean {
+        return compareSpaces(0, 4, 8)
     }
 
-    private fun secondDiagonalHasWinner(): Boolean{
-        return compareSpaces(2,4,6)
+    private fun secondDiagonalHasWinner(): Boolean {
+        return compareSpaces(2, 4, 6)
     }
 
-
-    private fun compareSpaces(first: Int, second: Int, third: Int): Boolean{
+    private fun compareSpaces(first: Int, second: Int, third: Int): Boolean {
+        if (_state.value.buttonValues[first] == "-" || _state.value.buttonValues[second] == "-" || _state.value.buttonValues[third] == "-") {
+            return false
+        }
         val firstTwoMatch = _state.value.buttonValues[first] == _state.value.buttonValues[second]
         val secondTwoMatch = _state.value.buttonValues[second] == _state.value.buttonValues[third]
-        val allThreeMatch = firstTwoMatch && secondTwoMatch
-        return if(_state.value.buttonValues[first] == "-"){
-            false
-        }else if(allThreeMatch){
+        if (firstTwoMatch && secondTwoMatch) {
             _state.value = _state.value.copy(victor = _state.value.buttonValues[first])
             val buttonWinners = _state.value.buttonWinners.copyOf()
             buttonWinners[first] = true
             buttonWinners[second] = true
             buttonWinners[third] = true
             _state.value = _state.value.copy(buttonWinners = buttonWinners)
-            true
-        }else{
-            false
+            return true
         }
+        return false
     }
 
-
-
-
-
-    fun resetBoard(){
+    fun resetBoard() {
         _state.value = TicTicToeState()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
 }

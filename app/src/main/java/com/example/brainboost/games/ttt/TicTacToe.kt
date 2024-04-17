@@ -1,5 +1,6 @@
 package com.example.brainboost
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.brainboost.ringer.AlarmRing
 
+private val lightBlue = Color(0xFFADD8E6)
+
 @Composable
 fun Tictactoe(
     modifier: Modifier = Modifier,
@@ -28,7 +31,7 @@ fun Tictactoe(
 ){
     val state = viewModel.state.value
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier.background(lightBlue).fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
