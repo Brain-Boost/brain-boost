@@ -19,16 +19,16 @@ interface HolidayTheme {
 }
 
 class ThanksgivingTheme(
-    override val backgroundPortrait: Int = R.drawable.background_portrait_thanksgiving,
+    override val backgroundPortrait: Int = R.drawable.background_portrait_blue,
     override val backgroundLandscape: Int = R.drawable.background_landscape_thanksgiving,
     override val cardback: Int = R.drawable.cardback,
     override val cardBaseColor: Color = Colors.tan,
     override val textColor: Color = Colors.tan,
-    override val cardFrontBaseColor: Color = Colors.tan,
+    override val cardFrontBaseColor: Color = Colors.blueWhite,
     override val matchedOutlineColor: Color = Colors.darkGreen,
     override val iconColor: Color = Colors.brown,
     override val imageMap: Map<Int, Int> = mapOf(
-        1 to R.drawable.tg1,
+        1 to R.drawable.brain_boost_for_card,
         2 to R.drawable.tg2,
         3 to R.drawable.tg3,
         4 to R.drawable.tg4,
