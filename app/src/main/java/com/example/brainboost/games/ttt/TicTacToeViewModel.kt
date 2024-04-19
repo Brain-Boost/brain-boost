@@ -17,7 +17,7 @@ class TicTacToeViewModel: ViewModel() {
             // Check if the game is over after "X" move, if not, let "O" make a move after 1 second delay
             if (!isGameOver() && !_state.value.isXTurn) {
                 viewModelScope.launch {
-                    delay(1000) // Delay for 1 second before placing "O"
+                    delay(500) // Delay for 1 second before placing "O"
                     makeRandomMove()
                 }
             }
