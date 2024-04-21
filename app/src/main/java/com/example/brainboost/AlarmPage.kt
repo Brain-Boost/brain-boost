@@ -1,7 +1,6 @@
 package com.example.brainboost
 
 import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -17,7 +16,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,6 +27,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DropdownMenu
@@ -36,7 +35,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -61,7 +59,6 @@ import androidx.compose.ui.unit.sp
 import com.example.brainboost.database.entities.Alarm
 import com.example.brainboost.nav.FlexibleDrawer
 import com.example.brainboost.nav.NavigationItem
-import com.example.brainboost.ringer.AlarmReceiver
 import com.example.brainboost.ringer.AlarmRing
 import com.example.brainboost.ringer.AlarmViewModel
 import com.example.brainboost.ui.theme.Colors
@@ -77,14 +74,19 @@ class AlarmClock : ComponentActivity() {
         setContent {
             val items = listOf(
                 NavigationItem("Home", Icons.Filled.Home),
+                NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
+                NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
             val selectedItem = items.first()  // Logic to determine the selected item
 
-            FlexibleDrawer(items, selectedItem, onItemSelect = { item ->
-                // Handle item selection
-            }) { drawerState ->
-                AlarmContent(drawerState)
+            // Correct the call to FlexibleDrawer here
+            FlexibleDrawer(
+                context = this@AlarmClock, // Pass the activity context here
+                items = items,
+                selectedItem = selectedItem
+            ) { drawerState ->
+                AlarmContent(drawerState)  // Pass your main content composable
             }
         }
     }

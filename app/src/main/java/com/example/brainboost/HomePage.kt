@@ -18,9 +18,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -48,7 +48,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -78,18 +77,24 @@ class HomePage : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val items = listOf(
-                NavigationItem("Home", Icons.Filled.Home),
+                NavigationItem("Alarms", Icons.Filled.Notifications),
+                NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
+                NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
             val selectedItem = items.first()  // Logic to determine the selected item
 
-            FlexibleDrawer(items, selectedItem, onItemSelect = { item ->
-                // Handle item selection
-            }) { drawerState ->
-                HomeContent(drawerState)
+            // Correct the call to FlexibleDrawer here
+            FlexibleDrawer(
+                context = this@HomePage, // Pass the activity context here
+                items = items,
+                selectedItem = selectedItem
+            ) { drawerState ->
+                HomeContent(drawerState)  // Pass your main content composable
             }
         }
     }
+
 
     @Composable
     fun HomeContent(drawerState: DrawerState) {

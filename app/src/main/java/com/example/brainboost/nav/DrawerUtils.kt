@@ -1,10 +1,10 @@
 package com.example.brainboost.nav
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,18 +13,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import com.example.brainboost.ui.theme.Colors
-import kotlinx.coroutines.launch
 
+import com.example.brainboost.ui.theme.Colors
+import com.example.brainboost.HomePage
+import com.example.brainboost.AlarmClock
+import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
+import com.example.brainboost.ui.theme.TicTacToeOpener
 
 @Composable
 fun FlexibleDrawer(
+    context: Context, // Pass the context here
     items: List<NavigationItem>,
     selectedItem: NavigationItem,
-    onItemSelect: (NavigationItem) -> Unit,
     content: @Composable (DrawerState) -> Unit
 ) {
     // Create the drawer state here
@@ -42,7 +44,24 @@ fun FlexibleDrawer(
                     .width(with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp / 2 })
             ) {
                 // Your drawer content
-                DrawerContent(items, selectedItem, onItemSelect)
+                DrawerContent(context, items, selectedItem) { item ->
+                    // Navigation logic will be here
+                    when (item.title) {
+                        "Home" -> {
+                            context.startActivity(Intent(context, HomePage::class.java))
+                        }
+                        "Alarms" -> {
+                            context.startActivity(Intent(context, AlarmClock::class.java))
+                        }
+                        "Tic-Tac-Toe" -> {
+                            context.startActivity(Intent(context, TicTacToeOpener::class.java))
+                        }
+                        "Memory-Game" -> {
+                            context.startActivity(Intent(context, MemoryGame::class.java))
+                        }
+                        // Add other cases for different navigation items
+                    }
+                }
             }
         },
         content = {
@@ -56,6 +75,7 @@ fun FlexibleDrawer(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DrawerContent(
+    context: Context, // Accept the context here
     items: List<NavigationItem>,
     selectedItem: NavigationItem,
     onItemSelect: (NavigationItem) -> Unit
