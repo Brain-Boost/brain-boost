@@ -82,15 +82,14 @@ class HomePage : ComponentActivity() {
                 NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
-            val selectedItem = items.first()  // Logic to determine the selected item
+            val selectedItem = items.first()
 
-            // Correct the call to FlexibleDrawer here
             FlexibleDrawer(
-                context = this@HomePage, // Pass the activity context here
+                context = this@HomePage,
                 items = items,
                 selectedItem = selectedItem
             ) { drawerState ->
-                HomeContent(drawerState)  // Pass your main content composable
+                HomeContent(drawerState)
             }
         }
     }

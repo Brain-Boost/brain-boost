@@ -24,7 +24,7 @@ import com.example.brainboost.ui.theme.TicTacToeOpener
 
 @Composable
 fun FlexibleDrawer(
-    context: Context, // Pass the context here
+    context: Context,
     items: List<NavigationItem>,
     selectedItem: NavigationItem,
     content: @Composable (DrawerState) -> Unit

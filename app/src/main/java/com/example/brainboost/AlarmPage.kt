@@ -78,15 +78,14 @@ class AlarmClock : ComponentActivity() {
                 NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
-            val selectedItem = items.first()  // Logic to determine the selected item
+            val selectedItem = items.first()
 
-            // Correct the call to FlexibleDrawer here
             FlexibleDrawer(
-                context = this@AlarmClock, // Pass the activity context here
+                context = this@AlarmClock,
                 items = items,
                 selectedItem = selectedItem
             ) { drawerState ->
-                AlarmContent(drawerState)  // Pass your main content composable
+                AlarmContent(drawerState)
             }
         }
     }
@@ -110,7 +109,7 @@ class AlarmClock : ComponentActivity() {
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Colors.lightBlueBackground // Set your desired color here
+                        containerColor = Colors.lightBlueBackground
                     )
                 )
             },
