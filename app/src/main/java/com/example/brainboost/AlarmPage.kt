@@ -15,6 +15,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -24,13 +25,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -43,6 +48,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,9 +59,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.brainboost.database.entities.Alarm
+import com.example.brainboost.nav.FlexibleDrawer
+import com.example.brainboost.nav.NavigationItem
 import com.example.brainboost.ringer.AlarmReceiver
 import com.example.brainboost.ringer.AlarmRing
 import com.example.brainboost.ringer.AlarmViewModel
+import com.example.brainboost.ui.theme.Colors
+import kotlinx.coroutines.launch
 
 
 class AlarmClock : ComponentActivity() {
@@ -64,12 +74,51 @@ class AlarmClock : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-            // AlarmClockApp() // Assuming you'll use this in the final version
-            AlarmClockDisplay(alarmViewModel)
+            val items = listOf(
+                NavigationItem("Home", Icons.Filled.Home),
+                // Add other items here...
+            )
+            val selectedItem = items.first()  // Logic to determine the selected item
 
+            FlexibleDrawer(items, selectedItem, onItemSelect = { item ->
+                // Handle item selection
+            }) { drawerState ->
+                AlarmContent(drawerState)
+            }
         }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun AlarmContent(drawerState: DrawerState) {
+        val coroutineScope = rememberCoroutineScope()
+
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Brain Boost | Alarm Clock") },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                drawerState.open() // Open the drawer
+                            }
+                        }) {
+                            Icon(Icons.Filled.Menu, contentDescription = "Menu")
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = Colors.lightBlueBackground // Set your desired color here
+                    )
+                )
+            },
+            content = { innerPadding ->
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    // Your existing UI elements, positioned inside the Box
+                    AlarmClockDisplay(alarmViewModel)
+                }
+            }
+        )
     }
 
 
@@ -89,43 +138,6 @@ class AlarmClock : ComponentActivity() {
     //lightBlue color code
     private val lightBlue = Color(0xFFADD8E6)
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun AlarmClockApp() {
-        MaterialTheme {
-            Scaffold(
-                topBar = {
-                    TopAppBar(title = {
-                        Text(
-                            "Brain Boost | Alarm Clock",
-                            color = Color.Black
-                        )
-                    }, colors = TopAppBarDefaults.topAppBarColors(containerColor = lightBlue))
-                },
-                content = { padding ->
-                    AlarmTopLabel(padding)
-                },
-                containerColor = lightBlue
-            )
-        }
-    }
-
-
-    @Composable
-    fun AlarmTopLabel(padding: PaddingValues) {
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Text("Alarm Clock!", fontSize = 32.sp, modifier = Modifier.padding(bottom = 16.dp))
-            // AlarmInputForm(alarmViewModel)
-        }
-    }
-
 
 // This function sets the layout and is able to display 3 alarms at once.
 // At this point it has the ability to display 1 alarm, and I will implement
@@ -143,15 +155,10 @@ class AlarmClock : ComponentActivity() {
         var mCheckedState by remember { mutableStateOf(false) }
 
 
-        Scaffold(
-            topBar = {
-                TopAppBar(title = { Text("Brain Boost | Alarm Clock") })
-            }
-        ) { paddingValues ->
+
             Column(
                 modifier = Modifier
                     .background(lightBlue)
-                    .padding(paddingValues)
                     .fillMaxSize()
                     .padding(16.dp)
             ) {
@@ -334,7 +341,7 @@ class AlarmClock : ComponentActivity() {
             }
         } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp))
     }
-}
+
 
 private fun deleteLatestAlarm(context: Context, alarm: Alarm, alarmViewModel: AlarmViewModel) {
 
