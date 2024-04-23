@@ -40,15 +40,15 @@ fun Tictactoe(
         val winner = state.victor
 
         // alarm kill code - SJL
-        if (winner != null) {
+        if (winner != null && winner == "X") {
             if (alarmRing.isPlaying()) {
                 alarmRing.stopRingtone()
             }
         }
         // Check if there is a winner or tie
         val endGameMessage = when {
-            winner != null -> "Tic Tac Toe\n$winner Wins"
-            state.buttonValues.none { it == "-" } -> "Tic Tac Toe\nIt's a Tie!"
+            winner != null -> "$winner Wins"
+            state.buttonValues.none { it == "-" } -> "It's a Tie!"
             else -> turnMessage
         }
 
