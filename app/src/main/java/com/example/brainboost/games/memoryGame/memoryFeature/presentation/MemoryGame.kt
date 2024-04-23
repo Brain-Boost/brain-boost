@@ -29,6 +29,7 @@ import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen
 import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
 import com.example.brainboost.nav.FlexibleDrawer
 import com.example.brainboost.nav.NavigationItem
+import com.example.brainboost.ui.theme.Colors
 import com.example.brainboost.ui.theme.MemoryTheme
 import kotlinx.coroutines.launch
 
@@ -74,7 +75,7 @@ fun MemoryGameContent(drawerState: DrawerState, viewModel: MemoryViewModel) {
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background // Set your desired color here
+                    containerColor = Colors.memBlueBackground // Set your desired color here
                 )
             )
         },
