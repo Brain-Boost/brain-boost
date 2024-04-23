@@ -56,6 +56,7 @@ import com.example.brainboost.nav.FlexibleDrawer
 import com.example.brainboost.nav.NavigationItem
 import com.example.brainboost.ui.theme.Colors
 import com.example.brainboost.ui.theme.TicTacToeOpener
+import com.example.brainboost.ui.theme.WurdleGame
 import com.example.brainboost.ui.theme.brightBlue
 import com.example.brainboost.ui.theme.darkGray
 import com.example.brainboost.ui.theme.gray
@@ -79,7 +80,8 @@ class HomePage : ComponentActivity() {
             val items = listOf(
                 NavigationItem("Alarms", Icons.Filled.Notifications),
                 NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
-                NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
+                NavigationItem("Memory-Game", Icons.Filled.PlayArrow),
+                NavigationItem("Wurdle", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
             val selectedItem = items.first()
@@ -135,7 +137,7 @@ class HomePage : ComponentActivity() {
         Box(
             modifier = modifier.fillMaxSize()
                 .background(Colors.lightBlueBackground)
-                .padding(top = 150.dp, bottom = 4.dp),
+                .padding(top = 250.dp, bottom = 4.dp),
             contentAlignment = Alignment.Center
         ) {
             Card(
@@ -189,6 +191,32 @@ class HomePage : ComponentActivity() {
                     ) {
                         Text(
                             text = "Memory Game",
+                            color = Color.White,
+                            fontSize = 30.sp
+                        )
+                    }
+                }
+                Row(
+                    modifier = modifier.background(Colors.lightBlueBackground)
+                        .fillMaxWidth()
+                        .padding(top = 40.dp, bottom = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = {
+                            myContext.startActivity(
+                                Intent(
+                                    myContext,
+                                    WurdleGame::class.java
+                                )
+                            )
+                        },
+                        colors = ButtonDefaults.buttonColors(brightBlue),
+                        modifier = Modifier.size(600.dp, 80.dp)
+                    ) {
+                        Text(
+                            text = "Wurdle",
                             color = Color.White,
                             fontSize = 30.sp
                         )
