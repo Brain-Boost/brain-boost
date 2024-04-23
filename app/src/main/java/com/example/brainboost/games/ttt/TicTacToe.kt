@@ -26,8 +26,7 @@ private val lightBlue = Color(0xFFADD8E6)
 fun Tictactoe(
     modifier: Modifier = Modifier,
     viewModel: TicTacToeViewModel = TicTacToeViewModel(),
-    alarmRing: AlarmRing // added - SJL
-
+    alarmRing: AlarmRing
 ){
     val state = viewModel.state.value
     Column(
@@ -39,16 +38,15 @@ fun Tictactoe(
         val turnMessage = "Tic Tac Toe\nIt is $turn"
         val winner = state.victor
 
-        // alarm kill code - SJL
-        if (winner != null) {
-            if (alarmRing.isPlaying()) {
-                alarmRing.stopRingtone()
-            }
+        // Check if there is a winner or tie
+        val endGameMessage = when {
+            winner != null -> "Tic Tac Toe\n$winner Wins"
+            state.buttonValues.none { it == "-" } -> "Tic Tac Toe\nIt's a Tie!"
+            else -> turnMessage
         }
 
-        val winnerMessage = "Tic Tac Toe\n$winner Wins"
         Text(
-            text = if(winner != null) winnerMessage else turnMessage,
+            text = endGameMessage,
             textAlign = TextAlign.Center,
             modifier = modifier.padding(16.dp),
             fontSize = 40.sp,
@@ -56,6 +54,7 @@ fun Tictactoe(
             style = MaterialTheme.typography.headlineMedium
         )
 
+        // Build the Tic Tac Toe board and reset button
         BuildRow(rowId = 1, viewModel = viewModel)
         BuildRow(rowId = 2, viewModel = viewModel)
         BuildRow(rowId = 3, viewModel = viewModel)
@@ -69,7 +68,6 @@ fun Tictactoe(
         ){
             Text(text = "Reset Game", fontSize = 32.sp)
         }
-
     }
 }
 
