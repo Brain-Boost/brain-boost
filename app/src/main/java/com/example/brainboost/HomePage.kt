@@ -120,9 +120,7 @@ class HomePage : ComponentActivity() {
             },
             content = { innerPadding ->
                 Box(modifier = Modifier.padding(innerPadding)) {
-                    // Your existing UI elements, positioned inside the Box
                     ButtonStack()
-                    // Text("Games") // Trying to add 
                     WorkingClock()
                 }
             }
@@ -146,10 +144,10 @@ class HomePage : ComponentActivity() {
             ) {
                 // Add a label at the top of the buttons
                 Text(
-                    text = "Play a Game", // Replace with your desired text
+                    text = "Play a Game",
                     color = Color.Black,
                     fontSize = 24.sp,
-                    modifier = Modifier.padding(bottom = 16.dp) // Space above the first button
+                    modifier = Modifier.padding(bottom = 16.dp)
                 )
 
                 Card(
@@ -262,10 +260,10 @@ class HomePage : ComponentActivity() {
         )
         {
             Text(
-                text = "Alarms", // Replace with your desired text
+                text = "Alarms",
                 fontSize = 20.sp,
                 color = Color.Black,
-                modifier = Modifier.padding(top = 16.dp) // Add padding to position the text below the clock
+                modifier = Modifier.padding(top = 16.dp)
             )
             Button(
                 onClick = {
