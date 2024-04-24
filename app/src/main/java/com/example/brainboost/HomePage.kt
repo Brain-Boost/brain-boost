@@ -134,92 +134,105 @@ class HomePage : ComponentActivity() {
         modifier: Modifier = Modifier
     ) {
         val myContext = LocalContext.current
+
         Box(
             modifier = modifier.fillMaxSize()
                 .background(Colors.lightBlueBackground)
                 .padding(top = 250.dp, bottom = 4.dp),
             contentAlignment = Alignment.Center
         ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(.7f)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(
-                    modifier = modifier.background(Colors.lightBlueBackground)
-                        .fillMaxWidth()
-                        .padding(top = 4.dp, bottom = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                // Add a label at the top of the buttons
+                Text(
+                    text = "Play a Game", // Replace with your desired text
+                    color = Color.Black,
+                    fontSize = 24.sp,
+                    modifier = Modifier.padding(bottom = 16.dp) // Space above the first button
+                )
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth(.7f)
                 ) {
-                    Button(
-                        onClick = {
-                            myContext.startActivity(
-                                Intent(
-                                    myContext,
-                                    TicTacToeOpener::class.java
-                                )
-                            )
-                        },
-                        colors = ButtonDefaults.buttonColors(brightBlue),
-                        modifier = Modifier.size(600.dp, 80.dp)
+                    Row(
+                        modifier = modifier.background(Colors.lightBlueBackground)
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            text = "Tic Tac Toe",
-                            color = Color.White,
-                            fontSize = 30.sp
-                        )
+                        Button(
+                            onClick = {
+                                myContext.startActivity(
+                                    Intent(
+                                        myContext,
+                                        TicTacToeOpener::class.java
+                                    )
+                                )
+                            },
+                            colors = ButtonDefaults.buttonColors(brightBlue),
+                            modifier = Modifier.size(600.dp, 80.dp)
+                        ) {
+                            Text(
+                                text = "Tic Tac Toe",
+                                color = Color.White,
+                                fontSize = 30.sp
+                            )
+                        }
                     }
-                }
-                Row(
-                    modifier = modifier.background(Colors.lightBlueBackground)
-                        .fillMaxWidth()
-                        .padding(top = 40.dp, bottom = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Button(
-                        onClick = {
-                            myContext.startActivity(
-                                Intent(
-                                    myContext,
-                                    MemoryGame::class.java
-                                )
-                            )
-                        },
-                        colors = ButtonDefaults.buttonColors(brightBlue),
-                        modifier = Modifier.size(600.dp, 80.dp)
+                    Row(
+                        modifier = modifier.background(Colors.lightBlueBackground)
+                            .fillMaxWidth()
+                            .padding(top = 40.dp, bottom = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            text = "Memory Game",
-                            color = Color.White,
-                            fontSize = 30.sp
-                        )
+                        Button(
+                            onClick = {
+                                myContext.startActivity(
+                                    Intent(
+                                        myContext,
+                                        MemoryGame::class.java
+                                    )
+                                )
+                            },
+                            colors = ButtonDefaults.buttonColors(brightBlue),
+                            modifier = Modifier.size(600.dp, 80.dp)
+                        ) {
+                            Text(
+                                text = "Memory Game",
+                                color = Color.White,
+                                fontSize = 30.sp
+                            )
+                        }
                     }
-                }
-                Row(
-                    modifier = modifier.background(Colors.lightBlueBackground)
-                        .fillMaxWidth()
-                        .padding(top = 40.dp, bottom = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Button(
-                        onClick = {
-                            myContext.startActivity(
-                                Intent(
-                                    myContext,
-                                    WurdleGame::class.java
-                                )
-                            )
-                        },
-                        colors = ButtonDefaults.buttonColors(brightBlue),
-                        modifier = Modifier.size(600.dp, 80.dp)
+                    Row(
+                        modifier = modifier.background(Colors.lightBlueBackground)
+                            .fillMaxWidth()
+                            .padding(top = 40.dp, bottom = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            text = "Wurdle",
-                            color = Color.White,
-                            fontSize = 30.sp
-                        )
+                        Button(
+                            onClick = {
+                                myContext.startActivity(
+                                    Intent(
+                                        myContext,
+                                        WurdleGame::class.java
+                                    )
+                                )
+                            },
+                            colors = ButtonDefaults.buttonColors(brightBlue),
+                            modifier = Modifier.size(600.dp, 80.dp)
+                        ) {
+                            Text(
+                                text = "Wurdle",
+                                color = Color.White,
+                                fontSize = 30.sp
+                            )
+                        }
                     }
                 }
             }
@@ -246,8 +259,14 @@ class HomePage : ComponentActivity() {
                 .padding(top = 40.dp, bottom = 4.dp), // changed top from 100 to 40 to fix inclusion of drawer
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
-        ) {
-
+        )
+        {
+            Text(
+                text = "Alarms", // Replace with your desired text
+                fontSize = 20.sp,
+                color = Color.Black,
+                modifier = Modifier.padding(top = 16.dp) // Add padding to position the text below the clock
+            )
             Button(
                 onClick = {
                     myContext.startActivity(Intent(myContext, AlarmClock::class.java))
@@ -262,6 +281,7 @@ class HomePage : ComponentActivity() {
                     outerCircleThickness = 25f
                 )
             }
+
         }
     }
 
