@@ -86,14 +86,14 @@ class AlarmClock : ComponentActivity() {
                 items = items,
                 selectedItem = selectedItem
             ) { drawerState ->
-                AlarmContent(drawerState)
+                AlarmContent(drawerState, alarmViewModel)
             }
         }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun AlarmContent(drawerState: DrawerState) {
+    fun AlarmContent(drawerState: DrawerState, alarmViewModel: AlarmViewModel) {
         val coroutineScope = rememberCoroutineScope()
 
         Scaffold(
@@ -117,14 +117,21 @@ class AlarmClock : ComponentActivity() {
             content = { innerPadding ->
                 Box(modifier = Modifier.padding(innerPadding)) {
                     // Your existing UI elements, positioned inside the Box
-                    AlarmClockDisplay(alarmViewModel)
+                    AlarmClockDisplay(this@AlarmClock.alarmViewModel)
                 }
             }
         )
     }
 
 
-    private fun createAnAlarm(context: Context, label: String, hour: Int, minute: Int, meridian: String, status: Boolean) {
+    private fun createAnAlarm(
+        context: Context,
+        label: String,
+        hour: Int,
+        minute: Int,
+        meridian: String,
+        status: Boolean
+    ) {
         val newAlarm = Alarm(
             label = label,
             hour = hour,
@@ -158,51 +165,58 @@ class AlarmClock : ComponentActivity() {
 
 
 
-            Column(
-                modifier = Modifier
-                    .background(lightBlue)
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
+        Column(
+            modifier = Modifier
+                .background(lightBlue)
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
 
-                DisplayLatestAlarm(alarmViewModel = alarmViewModel)
+            DisplayLatestAlarm(alarmViewModel = alarmViewModel)
 
-                callIndividualAlarm(
-                    numberOfHours = numberOfHours,
-                    onHoursChange = { numberOfHours = it },
-                    numberOfMinutes = numberOfMinutes,
-                    onMinutesChange = { numberOfMinutes = it },
-                    mSelectedText = mSelectedText,
-                    onSelectedTextChange = { mSelectedText = it },
-                    mCheckedState = mCheckedState,
-                    onCheckedChange = { isChecked ->
-                        mCheckedState = isChecked
-                        val message = if (isChecked) "Alarm is turned on" else "Alarm is turned off"
-                        showToastForAlarmStatus(context, message)
-                        if (isChecked) {
-                            // Using the hoisted state directly
-                            Log.d("AlarmClock", "Entered the alarm is checked to create alarm")
-                            Log.d("AlarmClock", "hour is $numberOfHours but numberOfHours is $numberOfHours")
-                            Log.d("AlarmClock", "hour is $numberOfMinutes but numberOfMinutes is $numberOfMinutes")
-                            createAnAlarm(
-                                context = context,
-                                label = "Alarm !",
-                                hour = numberOfHours,
-                                minute = numberOfMinutes,
-                                meridian = mSelectedText, // This should reflect the latest AM/PM selection
-                                status = mCheckedState
-                            )
+            callIndividualAlarm(
+                numberOfHours = numberOfHours,
+                onHoursChange = { numberOfHours = it },
+                numberOfMinutes = numberOfMinutes,
+                onMinutesChange = { numberOfMinutes = it },
+                mSelectedText = mSelectedText,
+                onSelectedTextChange = { mSelectedText = it },
+                mCheckedState = mCheckedState,
+                onCheckedChange = { isChecked ->
+                    mCheckedState = isChecked
+                    val message = if (isChecked) "Alarm is turned on" else "Alarm is turned off"
+                    showToastForAlarmStatus(context, message)
+                    if (isChecked) {
+                        // Using the hoisted state directly
+                        Log.d("AlarmClock", "Entered the alarm is checked to create alarm")
+                        Log.d(
+                            "AlarmClock",
+                            "hour is $numberOfHours but numberOfHours is $numberOfHours"
+                        )
+                        Log.d(
+                            "AlarmClock",
+                            "hour is $numberOfMinutes but numberOfMinutes is $numberOfMinutes"
+                        )
+                        createAnAlarm(
+                            context = context,
+                            label = "Alarm !",
+                            hour = numberOfHours,
+                            minute = numberOfMinutes,
+                            meridian = mSelectedText, // This should reflect the latest AM/PM selection
+                            status = mCheckedState
+                        )
 
-                        }
                     }
+                },
+                alarmViewModel = alarmViewModel
 
-                )
+            )
 
-                Spacer(modifier = Modifier.weight(1f))
-            }
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
+}
 
     @Composable
     fun callIndividualAlarm(
@@ -213,7 +227,8 @@ class AlarmClock : ComponentActivity() {
         mSelectedText: String,
         onSelectedTextChange: (String) -> Unit,
         mCheckedState: Boolean,
-        onCheckedChange: (Boolean) -> Unit
+        onCheckedChange: (Boolean) -> Unit,
+        alarmViewModel: AlarmViewModel
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             // Time selection
@@ -231,81 +246,90 @@ class AlarmClock : ComponentActivity() {
             // AM/PM and On/Off switches
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp), // Add padding if necessary
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AMPMSelection(mSelectedText, onSelectedTextChange)
-                OnOffSwitch(mCheckedState, onCheckedChange)
+                OnOffSwitch(mCheckedState, onCheckedChange, alarmViewModel)
             }
         }
     }
 
     @Composable
     fun TimeSelectionColumn(unit: String, number: Int, onNumberChange: (Int) -> Unit) {
+        val maxValue = when (unit) {
+            "H" -> 12
+            "M" -> 59
+            else -> 59
+        }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Button(
-                onClick = { onNumberChange(number + 1) },
+                onClick = { onNumberChange((number + 1).coerceIn(0, maxValue)) },
                 modifier = Modifier.size(width = 90.dp, height = 40.dp)
             ) { Text(text = "UP") }
 
             Text(text = number.toString().padStart(2, '0'), style = TextStyle(fontSize = 30.sp))
 
             Button(
-                onClick = { onNumberChange(number - 1) },
+                onClick = { onNumberChange((number - 1).coerceAtLeast(0)) },
                 modifier = Modifier.size(width = 90.dp, height = 40.dp)
             ) { Text(text = "DOWN") }
 
-            Text(text = unit, color = Color.Gray)
+            Text(text = unit, color = Color.Black)
         }
     }
 
-    @Composable
-    fun AMPMSelection(mSelectedText: String, onSelectedTextChange: (String) -> Unit) {
-        var mExpanded by remember { mutableStateOf(false) }
-        val mOptions = listOf("AM", "PM")
-
-        OutlinedTextField(
-            value = mSelectedText,
-            onValueChange = {},
-            label = { Text("AM/PM") },
-            trailingIcon = {
-                Icon(
-                    if (mExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                    "contentDescription",
-                    Modifier.clickable { mExpanded = !mExpanded }
-                )
-            },
-            readOnly = true,
-            modifier = Modifier.clickable { mExpanded = true }
-        )
-
-        DropdownMenu(
-            expanded = mExpanded,
-            onDismissRequest = { mExpanded = false }
-        ) {
-            mOptions.forEach { label ->
-                DropdownMenuItem(
-                    onClick = {
-                        onSelectedTextChange(label)
-                        mExpanded = false
-                    },
-                    text = { Text(text = label) }
-                )
+@Composable
+fun AMPMSelection(mSelectedText: String, onSelectedTextChange: (String) -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start,
+        //modifier = Modifier.fillMaxWidth().padding(16.dp)
+    ) {
+        Text(text = "AM/PM: ", color = Color.Gray, modifier = Modifier.padding(end = 8.dp))
+        // AM if the switch is checked, PM if not
+        Switch(
+            checked = mSelectedText == "PM",
+            onCheckedChange = { isChecked ->
+                onSelectedTextChange(if (isChecked) "PM" else "AM")
             }
-        }
+        )
+        Text(text = if (mSelectedText == "PM") "PM" else "AM")
     }
+}
 
-    @Composable
-    fun OnOffSwitch(mCheckedState: Boolean, onCheckedChange: (Boolean) -> Unit) {
-        Row {
-            Text(text = "Off/On", color = Color.Gray)
-            Switch(checked = mCheckedState, onCheckedChange = onCheckedChange)
-        }
+
+@Composable
+fun OnOffSwitch(mCheckedState: Boolean, onCheckedChange: (Boolean) -> Unit, alarmViewModel: AlarmViewModel) {
+    val context = LocalContext.current
+    val latestAlarm by alarmViewModel.latestAlarm.observeAsState()
+
+    Row (
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start,
+        ){
+        Text(text = "Off/On", color = Color.Gray, modifier = Modifier.padding(end = 8.dp))
+        Switch(
+            checked = mCheckedState,
+            onCheckedChange = { isChecked ->
+                onCheckedChange(isChecked)
+                if (!isChecked) {
+                    // If the switch is turned off, delete the associated alarm
+                    latestAlarm?.let {
+                        alarmViewModel.deleteLatestAlarm()
+                        Toast.makeText(context, "Deleted Alarm: ${it.hour}:${it.minute} ${it.meridian}", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        )
     }
+}
 
 
-    private fun showToastForAlarmStatus(context: Context, message: String) {
+
+private fun showToastForAlarmStatus(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
@@ -337,9 +361,7 @@ class AlarmClock : ComponentActivity() {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text("Current Alarm: ${alarm.hour}:${alarm.minute} ${alarm.meridian}")
 
-                Button(onClick = { deleteLatestAlarm(context, alarm, alarmViewModel) }) {
-                    Text("Delete Alarm")
-                }
+
             }
         } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp))
     }
