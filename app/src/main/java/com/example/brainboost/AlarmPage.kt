@@ -75,7 +75,8 @@ class AlarmClock : ComponentActivity() {
             val items = listOf(
                 NavigationItem("Home", Icons.Filled.Home),
                 NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
-                NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
+                NavigationItem("Memory-Game", Icons.Filled.PlayArrow),
+                NavigationItem("Wurdle", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
             val selectedItem = items.first()

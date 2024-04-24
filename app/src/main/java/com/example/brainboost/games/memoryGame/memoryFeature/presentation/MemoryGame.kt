@@ -41,7 +41,8 @@ class MemoryGame:ComponentActivity() {
             val items = listOf(
                 NavigationItem("Home", Icons.Filled.Home),
                 NavigationItem("Alarms", Icons.Filled.Notifications),
-                NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow)
+                NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
+                NavigationItem("Wurdle", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
             val selectedItem = items.first()

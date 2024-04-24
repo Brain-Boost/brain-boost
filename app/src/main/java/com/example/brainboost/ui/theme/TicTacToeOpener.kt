@@ -40,7 +40,8 @@ class TicTacToeOpener : ComponentActivity() {
             val items = listOf(
                 NavigationItem("Home", Icons.Filled.Home),
                 NavigationItem("Alarms", Icons.Filled.Notifications),
-                NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
+                NavigationItem("Memory-Game", Icons.Filled.PlayArrow),
+                NavigationItem("Wurdle", Icons.Filled.PlayArrow)
                 // Add other items here...
             )
             val selectedItem = items.first()

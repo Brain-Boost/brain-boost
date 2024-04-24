@@ -29,6 +29,11 @@
             android:label="@string/title_activity_tic_tac_toe"
             android:theme="@style/Theme.brainboost" />
         <activity
+            android:name=".ui.theme.WurdleGame"
+            android:exported="false"
+            android:label="@string/title_activity_wurdle_game"
+            android:theme="@style/Theme.brainboost" />
+        <activity
             android:name=".AlarmClock"
             android:exported="false"
             android:label="@string/title_activity_second"

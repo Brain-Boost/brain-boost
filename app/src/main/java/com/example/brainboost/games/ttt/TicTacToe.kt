@@ -36,7 +36,7 @@ fun Tictactoe(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val turn = if(state.isXTurn) "X's Turn" else "O's Turn"
-        val turnMessage = "Tic Tac Toe\nIt is $turn"
+        val turnMessage = "It is $turn"
         val winner = state.victor
 
         // alarm kill code - SJL
