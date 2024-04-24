@@ -8,6 +8,7 @@ import com.example.brainboost.Push
 import com.example.brainboost.R
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.brainboost.ui.theme.TicTacToeOpener
+import com.example.brainboost.ui.theme.WurdleGame
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -32,23 +33,23 @@ class AlarmReceiver : BroadcastReceiver() {
             // Prepare Intents
             val tttIntent = Intent(context, TicTacToeOpener::class.java)
             val memIntent = Intent(context, MemoryGame::class.java)
-            // val wurdIntent = Intent(context, <insert wurdle game>::class.java)
+            val wurdIntent = Intent(context, WurdleGame::class.java)
 
             pushNotificationHelper.createNotificationWithActions(
                 channelId = "test_channel_id",
                 notificationId = 1,
-                title = "Test Notification",
+                title = "Brain Boost",
                 content = "It's Brain Boost time! Win one of these game to shut off the alarm!",
                 icon = R.drawable.ic_launcher_foreground,
                 tttIntent = tttIntent,
-                tttLabel = "Play a game of Tic-Tac-Toe",
+                tttLabel = "Tic-Tac-Toe",
                 tttIcon = R.drawable.ic_launcher_foreground,
                 memIntent = memIntent,
-                memLabel = "Play a Memorization Game",
-                memIcon = R.drawable.ic_launcher_foreground
-                // wurdIntent = memIntent,
-                // wurdLabel = "Play some Wurdle",
-                // wurdIcon = R.drawable.ic_launcher_foreground
+                memLabel = "Memory Game",
+                memIcon = R.drawable.ic_launcher_foreground,
+                wurdIntent = wurdIntent,
+                wurdLabel = "Wurdle",
+                wurdIcon = R.drawable.ic_launcher_foreground
             )
         }
     }

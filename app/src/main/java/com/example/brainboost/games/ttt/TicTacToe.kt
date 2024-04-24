@@ -36,19 +36,24 @@ fun Tictactoe(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val turn = if(state.isXTurn) "X's Turn" else "O's Turn"
-        val turnMessage = "Tic Tac Toe\nIt is $turn"
+        val turnMessage = "It is $turn"
         val winner = state.victor
 
         // alarm kill code - SJL
-        if (winner != null) {
+        if (winner != null && winner == "X") {
             if (alarmRing.isPlaying()) {
                 alarmRing.stopRingtone()
             }
         }
+        // Check if there is a winner or tie
+        val endGameMessage = when {
+            winner != null -> "$winner Wins"
+            state.buttonValues.none { it == "-" } -> "It's a Tie!"
+            else -> turnMessage
+        }
 
-        val winnerMessage = "Tic Tac Toe\n$winner Wins"
         Text(
-            text = if(winner != null) winnerMessage else turnMessage,
+            text = endGameMessage,
             textAlign = TextAlign.Center,
             modifier = modifier.padding(16.dp),
             fontSize = 40.sp,

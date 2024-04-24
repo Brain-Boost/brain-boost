@@ -21,6 +21,7 @@ import com.example.brainboost.HomePage
 import com.example.brainboost.AlarmClock
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.brainboost.ui.theme.TicTacToeOpener
+import com.example.brainboost.ui.theme.WurdleGame
 
 @Composable
 fun FlexibleDrawer(
@@ -58,6 +59,9 @@ fun FlexibleDrawer(
                         }
                         "Memory-Game" -> {
                             context.startActivity(Intent(context, MemoryGame::class.java))
+                        }
+                        "Wurdle" -> {
+                            context.startActivity(Intent(context, WurdleGame::class.java))
                         }
                         // Add other cases for different navigation items
                     }
