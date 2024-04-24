@@ -18,7 +18,7 @@ interface HolidayTheme {
     fun getNextTheme(): HolidayTheme
 }
 
-class ThanksgivingTheme(
+class BrainBoostTheme(
     override val backgroundPortrait: Int = R.drawable.background_portrait_blue,
     override val backgroundLandscape: Int = R.drawable.background_landscape_thanksgiving,
     override val cardback: Int = R.drawable.cardback,
@@ -29,21 +29,21 @@ class ThanksgivingTheme(
     override val iconColor: Color = Colors.brown,
     override val imageMap: Map<Int, Int> = mapOf(
         1 to R.drawable.brain_boost_for_card,
-        2 to R.drawable.tg2,
-        3 to R.drawable.tg3,
-        4 to R.drawable.tg4,
-        5 to R.drawable.tg5,
-        6 to R.drawable.tg6,
-        7 to R.drawable.tg7,
-        8 to R.drawable.tg8,
-        9 to R.drawable.tg9,
+        2 to R.drawable.bb2,
+        3 to R.drawable.bb3,
+        4 to R.drawable.bb4,
+        5 to R.drawable.bb5,
+        6 to R.drawable.bb6,
+        7 to R.drawable.bb7,
+        8 to R.drawable.bb8,
+        9 to R.drawable.bb9,
     )
 ): HolidayTheme {
     override fun getImageResourceForNumber(number: Int): Int? {
         return imageMap[number]
     }
     override fun getNextTheme(): HolidayTheme {
-        return HalloweenTheme()
+        return BrainBoostTheme()
     }
 }
 class HalloweenTheme(
@@ -102,6 +102,6 @@ class ChristmasTheme(
     }
 
     override fun getNextTheme(): HolidayTheme {
-        return ThanksgivingTheme()
+        return BrainBoostTheme()
     }
 }
