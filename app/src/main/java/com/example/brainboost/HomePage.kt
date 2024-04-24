@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
@@ -123,6 +122,7 @@ class HomePage : ComponentActivity() {
                 Box(modifier = Modifier.padding(innerPadding)) {
                     // Your existing UI elements, positioned inside the Box
                     ButtonStack()
+                    // Text("Games") // Trying to add 
                     WorkingClock()
                 }
             }
@@ -432,4 +432,3 @@ enum class ClockHands {
     Minutes,
     Hours
 }
-
