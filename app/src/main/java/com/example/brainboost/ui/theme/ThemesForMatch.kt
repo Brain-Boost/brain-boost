@@ -21,7 +21,7 @@ interface HolidayTheme {
 class BrainBoostTheme(
     override val backgroundPortrait: Int = R.drawable.background_portrait_blue,
     override val backgroundLandscape: Int = R.drawable.background_landscape_thanksgiving,
-    override val cardback: Int = R.drawable.cardback,
+    override val cardback: Int = R.drawable.bb_back_of_card,
     override val cardBaseColor: Color = Colors.tan,
     override val textColor: Color = Colors.tan,
     override val cardFrontBaseColor: Color = Colors.blueWhite,
