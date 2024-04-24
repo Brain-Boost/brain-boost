@@ -43,12 +43,12 @@ internal fun ColumnScope.GameHeader(
     Column(modifier
         .align(Alignment.CenterHorizontally)) {
 
-        Text(text = "Wurdle",
+        /*Text(text = "Wurdle",
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.align(
                 Alignment.CenterHorizontally),
-            fontSize = 40.sp)
+            fontSize = 40.sp)*/
         content()
 
     }
