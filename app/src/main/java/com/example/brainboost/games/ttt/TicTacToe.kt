@@ -2,11 +2,13 @@ package com.example.brainboost
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -27,7 +29,6 @@ fun Tictactoe(
     modifier: Modifier = Modifier,
     viewModel: TicTacToeViewModel = TicTacToeViewModel(),
     alarmRing: AlarmRing // added - SJL
-
 ){
     val state = viewModel.state.value
     Column(
@@ -72,7 +73,7 @@ fun Tictactoe(
                 contentColor = Color.White
             )
         ){
-            Text(text = "Reset Game", fontSize = 32.sp)
+            Text(text = "Reset Game", fontSize = 20.sp)
         }
 
     }
@@ -100,7 +101,6 @@ fun BuildRow(
     }
 }
 
-
 @Composable
 fun TicTacToeButton(
     button: String,
@@ -114,8 +114,17 @@ fun TicTacToeButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = color,
             contentColor = Color.White
-        )
+        ),
+        shape = MaterialTheme.shapes.large // Using the default large rounded button shape
     ){
-        Text(text = button, fontSize = 50.sp)
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.size(80.dp) // Adjust size as needed
+        ) {
+            Text(
+                text = button,
+                fontSize = 40.sp
+            )
+        }
     }
 }
