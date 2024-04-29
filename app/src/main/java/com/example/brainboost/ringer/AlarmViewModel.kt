@@ -12,10 +12,11 @@ import com.example.brainboost.ui.theme.AlarmCreate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AlarmViewModel(application: Application) : AndroidViewModel(application) {
+class AlarmViewModel(application: Application, label: String) : AndroidViewModel(application) {
     private val alarmCreate = AlarmCreate(application)
     private val alarmDao = AppDatabase.getDatabase(application).alarmDao()
     val latestAlarm: LiveData<Alarm?> = alarmDao.getLatestAlarm().asLiveData()
+    // val alarm: LiveData<Alarm?> = alarmDao.getAlarmById(label)
 
 
     // Function to insert a new alarm into the database and schedule it
@@ -57,9 +58,9 @@ class AlarmViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // Function to delete the latest alarm
-    fun deleteLatestAlarm() {
+    fun deleteAlarm(label: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val alarm = latestAlarm.value ?: return@launch  // Make sure there's an alarm to delete
+            val alarm = alarmDao.getAlarmById(label) ?: return@launch  // Make sure there's an alarm to delete
             alarmDao.deleteAlarm(alarm)
             alarmCreate.cancelAlarm(alarm.label)
         }

@@ -25,31 +25,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerState
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -199,7 +190,9 @@ class AlarmClock : ComponentActivity() {
         ) {
 
             // This is where we call the individual alarm composables for three alarms
+            DisplayAlarm(label = "Alarm !", alarmViewModel = alarmViewModel)
             callIndividualAlarm(
+                label = "Alarm !",
                 numberOfHours = firstAlarmHours,
                 onHoursChange = { firstAlarmHours = it },
                 numberOfMinutes = firstAlarmMinutes,
@@ -222,7 +215,9 @@ class AlarmClock : ComponentActivity() {
                 alarmViewModel = alarmViewModel
             )
 
+            DisplayAlarm(label = "Alarm Y", alarmViewModel = alarmViewModel)
             callIndividualAlarm(
+                label  = "Alarm Y",
                 numberOfHours = secondAlarmHours,
                 onHoursChange = { secondAlarmHours = it },
                 numberOfMinutes = secondAlarmMinutes,
@@ -245,7 +240,9 @@ class AlarmClock : ComponentActivity() {
                 alarmViewModel = alarmViewModel
             )
 
+            DisplayAlarm(label = "Alarm Z", alarmViewModel = alarmViewModel)
             callIndividualAlarm(
+                label  = "Alarm Z",
                 numberOfHours = thirdAlarmHours,
                 onHoursChange = { thirdAlarmHours = it },
                 numberOfMinutes = thirdAlarmMinutes,
@@ -272,6 +269,7 @@ class AlarmClock : ComponentActivity() {
 
     @Composable
     fun callIndividualAlarm(
+        label: String,
         numberOfHours: Int,
         numberOfMinutes: Int,
         mSelectedText: String,
@@ -315,7 +313,7 @@ class AlarmClock : ComponentActivity() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AMPMSelection(mSelectedText, onSelectedTextChange)
-                OnOffSwitch(mCheckedState, onCheckedChange, alarmViewModel)
+                OnOffSwitch(label, mCheckedState, onCheckedChange, alarmViewModel)
             }
         }
     }
@@ -388,12 +386,13 @@ class AlarmClock : ComponentActivity() {
 
     @Composable
     fun OnOffSwitch(
+        label: String,
         mCheckedState: Boolean,
         onCheckedChange: (Boolean) -> Unit,
         alarmViewModel: AlarmViewModel
     ) {
         val context = LocalContext.current
-        val latestAlarm by alarmViewModel.latestAlarm.observeAsState()
+        val Alarm by alarmViewModel.latestAlarm.observeAsState()
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -406,8 +405,8 @@ class AlarmClock : ComponentActivity() {
                     onCheckedChange(isChecked)
                     if (!isChecked) {
                         // If the switch is turned off, delete the associated alarm
-                        latestAlarm?.let {
-                            alarmViewModel.deleteLatestAlarm()
+                        Alarm?.let {
+                            alarmViewModel.deleteAlarm(label)
                             Toast.makeText(
                                 context,
                                 "Deleted Alarm: ${it.hour}:${it.minute} ${it.meridian}",
@@ -445,7 +444,7 @@ class AlarmClock : ComponentActivity() {
     }
 
     @Composable
-    fun DisplayLatestAlarm(alarmViewModel: AlarmViewModel) {
+    fun DisplayAlarm(alarmViewModel: AlarmViewModel, label: Any) {
         val latestAlarm by alarmViewModel.latestAlarm.observeAsState()
         val context = LocalContext.current
 
@@ -459,15 +458,6 @@ class AlarmClock : ComponentActivity() {
     }
 
 
-    private fun deleteLatestAlarm(context: Context, alarm: Alarm, alarmViewModel: AlarmViewModel) {
 
-        alarmViewModel.deleteLatestAlarm()
-
-        Toast.makeText(
-            context,
-            "Deleted Alarm: ${alarm.hour}:${alarm.minute} ${alarm.meridian}",
-            Toast.LENGTH_LONG
-        ).show()
-    }
 }
 
