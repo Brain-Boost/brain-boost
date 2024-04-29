@@ -26,7 +26,7 @@ class BrainBoostTheme(
     override val textColor: Color = Colors.tan,
     override val cardFrontBaseColor: Color = Colors.blueWhite,
     override val matchedOutlineColor: Color = Colors.darkGreen,
-    override val iconColor: Color = Colors.brown,
+    override val iconColor: Color = Colors.pink33,
     override val imageMap: Map<Int, Int> = mapOf(
         1 to R.drawable.brain_boost_for_card,
         2 to R.drawable.bb2,
