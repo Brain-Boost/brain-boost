@@ -43,4 +43,6 @@ object Colors {
     val lightBlueBackground = Color(0xFFADD8E6)
     val memBlueBackground = Color(0xFF57a3b1)
     val pink33 = Color(0xFFFC4E8A)
+    val black = Color(0xFF000000)
+    val white = Color(0xFFF3F3F3)
 }

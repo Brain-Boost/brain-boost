@@ -23,16 +23,16 @@ class BrainBoostTheme(
     override val backgroundLandscape: Int = R.drawable.background_landscape_thanksgiving,
     override val cardback: Int = R.drawable.bb_back_of_card,
     override val cardBaseColor: Color = Colors.tan,
-    override val textColor: Color = Colors.tan,
+    override val textColor: Color = Colors.white,
     override val cardFrontBaseColor: Color = Colors.blueWhite,
     override val matchedOutlineColor: Color = Colors.darkGreen,
-    override val iconColor: Color = Colors.pink33,
+    override val iconColor: Color = Colors.black,
     override val imageMap: Map<Int, Int> = mapOf(
         1 to R.drawable.brain_boost_for_card,
-        2 to R.drawable.bb2,
-        3 to R.drawable.bb3,
-        4 to R.drawable.bb4,
-        5 to R.drawable.bb5,
+        2 to R.drawable.brain1,
+        3 to R.drawable.brain2,
+        4 to R.drawable.brain3,
+        5 to R.drawable.brain4,
         6 to R.drawable.bb6,
         7 to R.drawable.bb7,
         8 to R.drawable.bb8,
@@ -72,36 +72,6 @@ class HalloweenTheme(
     }
 
     override fun getNextTheme(): HolidayTheme {
-        return ChristmasTheme()
-    }
-}
-
-class ChristmasTheme(
-    override val backgroundPortrait: Int = R.drawable.background_portrait_christmas,
-    override val backgroundLandscape: Int = R.drawable.background_landscape_christmas,
-    override val cardBaseColor: Color = Colors.blueGray,
-    override val cardback: Int = R.drawable.cardback_christmas,
-    override val textColor: Color = Color.White,
-    override val cardFrontBaseColor: Color = Colors.lightBlue,
-    override val matchedOutlineColor: Color = Colors.darkGreen,
-    override val iconColor: Color = Color.White,
-    override val imageMap: Map<Int, Int> = mapOf(
-        1 to R.drawable.cm1,
-        2 to R.drawable.cm2,
-        3 to R.drawable.cm3,
-        4 to R.drawable.cm4,
-        5 to R.drawable.cm5,
-        6 to R.drawable.cm6,
-        7 to R.drawable.cm7,
-        8 to R.drawable.cm8,
-        9 to R.drawable.cm9
-    )
-) : HolidayTheme {
-    override fun getImageResourceForNumber(number: Int): Int? {
-        return imageMap[number]
-    }
-
-    override fun getNextTheme(): HolidayTheme {
-        return BrainBoostTheme()
+        return HalloweenTheme()
     }
 }
