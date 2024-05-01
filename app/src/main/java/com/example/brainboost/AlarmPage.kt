@@ -274,42 +274,51 @@ class AlarmClock : ComponentActivity() {
         context: Context,
         alarmViewModel: AlarmViewModel
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // Time selection
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TimeSelectionColumn(
-                    label = "H",
-                    range = 1..12,
-                    selectedNumber = numberOfHours,
-                    onNumberChange = onHoursChange
-                )
-                Text(text = ":", fontSize = 30.sp, textAlign = TextAlign.Center)
-                TimeSelectionColumn(
-                    label = "M",
-                    range = 0..59,
-                    selectedNumber = numberOfMinutes,
-                    onNumberChange = onMinutesChange
-                )
-            }
+        Box(
+            modifier = Modifier
+                // .padding(4.dp)
+                .background(Colors.pink33) // Light gray background; change the color as needed
+                .fillMaxWidth()
+                .padding(16.dp) // Padding inside the box around the content
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                // Time selection
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TimeSelectionColumn(
+                        label = "H",
+                        range = 1..12,
+                        selectedNumber = numberOfHours,
+                        onNumberChange = onHoursChange
+                    )
+                    Text(text = ":", fontSize = 30.sp, textAlign = TextAlign.Center)
+                    TimeSelectionColumn(
+                        label = "M",
+                        range = 0..59,
+                        selectedNumber = numberOfMinutes,
+                        onNumberChange = onMinutesChange
+                    )
+                }
 
-            // AM/PM and On/Off switches
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp), // Add padding if necessary
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                AMPMSelection(mSelectedText, onSelectedTextChange)
-                OnOffSwitch(label, mCheckedState, onCheckedChange, alarmViewModel)
+                // AM/PM and On/Off switches
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Add padding if necessary
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AMPMSelection(mSelectedText, onSelectedTextChange)
+                    OnOffSwitch(label, mCheckedState, onCheckedChange, alarmViewModel)
+                }
             }
         }
     }
+
 
 
     @Composable
@@ -364,7 +373,7 @@ class AlarmClock : ComponentActivity() {
             horizontalArrangement = Arrangement.Start,
             //modifier = Modifier.fillMaxWidth().padding(16.dp)
         ) {
-            Text(text = "AM/PM: ", color = Color.Gray, modifier = Modifier.padding(end = 8.dp))
+            Text(text = "AM/PM: ", color = Color.Black, modifier = Modifier.padding(end = 8.dp))
             // AM if the switch is checked, PM if not
             Switch(
                 checked = mSelectedText == "PM",
@@ -391,7 +400,7 @@ class AlarmClock : ComponentActivity() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
-            Text(text = "Off/On", color = Color.Gray, modifier = Modifier.padding(end = 8.dp))
+            Text(text = "Off/On", color = Color.Black, modifier = Modifier.padding(end = 8.dp))
             Switch(
                 checked = mCheckedState,
                 onCheckedChange = { isChecked ->
