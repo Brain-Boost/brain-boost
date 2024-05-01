@@ -1,7 +1,6 @@
 package com.example.brainboost.ringer
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
@@ -12,20 +11,19 @@ import com.example.brainboost.ui.theme.AlarmCreate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AlarmViewModel(application: Application, label: String) : AndroidViewModel(application) {
+class AlarmViewModel(application: Application) : AndroidViewModel(application) {
     private val alarmCreate = AlarmCreate(application)
     private val alarmDao = AppDatabase.getDatabase(application).alarmDao()
-    val latestAlarm: LiveData<Alarm?> = alarmDao.getLatestAlarm().asLiveData()
-    // val alarm: LiveData<Alarm?> = alarmDao.getAlarmById(label)
+    val allAlarms: LiveData<List<Alarm>> = alarmDao.getAllAlarms().asLiveData()
 
+    // Function to get a specific alarm by label
+    fun getAlarmByLabel(label: String): LiveData<Alarm?> = alarmDao.getAlarmByLabel(label).asLiveData()
 
     // Function to insert a new alarm into the database and schedule it
     fun insertAlarm(alarm: Alarm) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("AlarmClock", "Entered insert alarm from create $alarm")
             alarmDao.insertAlarm(alarm)
             if (alarm.status) {
-                // Schedule the alarm
                 alarmCreate.setAlarm(alarm)
             }
         }
@@ -43,28 +41,12 @@ class AlarmViewModel(application: Application, label: String) : AndroidViewModel
         }
     }
 
-    // Function to toggle an alarm's status
-    fun toggleAlarmStatus(label: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val alarm = alarmDao.getAlarmById(label) ?: return@launch
-            val updatedAlarm = alarm.copy(status = !alarm.status)
-            alarmDao.insertAlarm(updatedAlarm) // Use insert for upsert functionality
-            if (updatedAlarm.status) {
-                alarmCreate.setAlarm(updatedAlarm)
-            } else {
-                alarmCreate.cancelAlarm(label)
-            }
-        }
-    }
-
-    // Function to delete the latest alarm
+    // Function to delete an alarm by label
     fun deleteAlarm(label: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val alarm = alarmDao.getAlarmById(label) ?: return@launch  // Make sure there's an alarm to delete
+            val alarm = alarmDao.getAlarmById(label) ?: return@launch
             alarmDao.deleteAlarm(alarm)
-            alarmCreate.cancelAlarm(alarm.label)
+            alarmCreate.cancelAlarm(label)
         }
     }
-
-
 }

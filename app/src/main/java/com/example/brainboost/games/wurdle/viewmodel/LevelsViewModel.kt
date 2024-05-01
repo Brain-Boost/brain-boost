@@ -23,6 +23,7 @@ class LevelsViewModel(
     fun levelPassed() {
         currentState().currentLevel?.let { levelRepository.levelPassed(it) }
         updateLevel()
+
     }
 
     private fun updateLevel() {

@@ -26,9 +26,11 @@ interface AlarmDao {
     @Delete
     suspend fun deleteAlarm(alarm: Alarm)
 
-    // Method to retrieve the latest or only alarm
     @Query("SELECT * FROM Alarm ORDER BY label DESC LIMIT 1")
     fun getLatestAlarm(): Flow<Alarm?>
+
+    @Query("SELECT * FROM Alarm WHERE label = :label LIMIT 1")
+    fun getAlarmByLabel(label: String): Flow<Alarm?>
 
     
 

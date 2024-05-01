@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
@@ -41,7 +42,8 @@ class TicTacToeOpener : ComponentActivity() {
                 NavigationItem("Home", Icons.Filled.Home),
                 NavigationItem("Alarms", Icons.Filled.Notifications),
                 NavigationItem("Memory-Game", Icons.Filled.PlayArrow),
-                NavigationItem("Wurdle", Icons.Filled.PlayArrow)
+                NavigationItem("Wurdle", Icons.Filled.PlayArrow),
+                NavigationItem("How to Play", Icons.Filled.Info)
                 // Add other items here...
             )
             val selectedItem = items.first()

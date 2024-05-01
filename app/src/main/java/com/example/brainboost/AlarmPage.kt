@@ -1,10 +1,3 @@
-/*
-Note to Self: Currently, the activity displays 3 separate alarm wheels. All three work separately.
-What has broken is the display of the current alarm and the deletion of alarms. Alarm deletion
-ideally still only works on the most recent alarm regardless of if it is tied to that box. I need
-to refactor that whole bit of code that I was lazy about before and replace it with actual fetch code
-based on alarm label. May need to pass as parameter if I'm not already.
-*/
 
 package com.example.brainboost
 
@@ -392,7 +385,7 @@ class AlarmClock : ComponentActivity() {
         alarmViewModel: AlarmViewModel
     ) {
         val context = LocalContext.current
-        val Alarm by alarmViewModel.latestAlarm.observeAsState()
+        val alarm by alarmViewModel.getAlarmByLabel(label).observeAsState()
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -405,7 +398,7 @@ class AlarmClock : ComponentActivity() {
                     onCheckedChange(isChecked)
                     if (!isChecked) {
                         // If the switch is turned off, delete the associated alarm
-                        Alarm?.let {
+                        alarm?.let {
                             alarmViewModel.deleteAlarm(label)
                             Toast.makeText(
                                 context,
@@ -444,18 +437,18 @@ class AlarmClock : ComponentActivity() {
     }
 
     @Composable
-    fun DisplayAlarm(alarmViewModel: AlarmViewModel, label: Any) {
-        val latestAlarm by alarmViewModel.latestAlarm.observeAsState()
+    fun DisplayAlarm(alarmViewModel: AlarmViewModel, label: String) {
+        // Use the label to get the specific alarm
+        val alarm by alarmViewModel.getAlarmByLabel(label).observeAsState()
         val context = LocalContext.current
 
-        latestAlarm?.let { alarm ->
+        alarm?.let {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Current Alarm: ${alarm.hour}:${alarm.minute} ${alarm.meridian}")
-
-
+                Text("Current Alarm: ${it.hour}:${it.minute} ${it.meridian}")
             }
         } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp))
     }
+
 
 
 
