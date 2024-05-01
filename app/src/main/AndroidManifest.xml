@@ -55,13 +55,15 @@
             android:name=".HomePage"
             android:exported="true"
             android:theme="@style/Theme.brainboost">
-
+        </activity>
+        <activity
+            android:name=".IntroPage"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <!-- Register AlarmReceiver -->
         <receiver
             android:name=".ringer.AlarmReceiver"

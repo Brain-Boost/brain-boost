@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryEvent
@@ -30,11 +29,13 @@ import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen
 import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen.components.IconButton
 import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen.components.MemoryGameCard
 import com.example.brainboost.memoryGame.memoryFeature.presentation.util.calculateRowRanges
+import com.example.brainboost.ringer.AlarmRing
 
 @Composable
 fun MemoryScreen(
     modifier: Modifier = Modifier,
-    viewModel: MemoryViewModel
+    viewModel: MemoryViewModel,
+    alarmRing: AlarmRing
 ) {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
@@ -173,6 +174,9 @@ fun MemoryScreen(
                 }
             }
         }
+        if (alarmRing.isPlaying()) {
+            alarmRing.stopRingtone()
+        }
     }
 }
 
@@ -226,14 +230,14 @@ fun BuildCardRow(
 }
 
 
-
+/*
 @Preview
 @Composable
 fun MemoryPreview(){
     val viewModel = MemoryViewModel()
     MemoryScreen(viewModel = viewModel)
 }
-
+*/
 
 
 
