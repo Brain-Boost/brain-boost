@@ -30,15 +30,18 @@ import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen
 import com.example.brainboost.memoryGame.memoryFeature.presentation.memoryScreen.MemoryViewModel
 import com.example.brainboost.nav.FlexibleDrawer
 import com.example.brainboost.nav.NavigationItem
+import com.example.brainboost.ringer.AlarmRing
 import com.example.brainboost.ui.theme.Colors
 import com.example.brainboost.ui.theme.MemoryTheme
 import kotlinx.coroutines.launch
 
 //add images for the actual cards both the back and the faces
 class MemoryGame:ComponentActivity() {
+    private lateinit var alarmRing: AlarmRing
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val alarmRing = AlarmRing.getInstance(this)
             val items = listOf(
                 NavigationItem("Home", Icons.Filled.Home),
                 NavigationItem("Alarms", Icons.Filled.Notifications),
@@ -54,14 +57,14 @@ class MemoryGame:ComponentActivity() {
                 items = items,
                 selectedItem = selectedItem
             ) { drawerState ->
-                MemoryGameContent(drawerState, viewModel)
+                MemoryGameContent(drawerState, viewModel, alarmRing)
             }
         }
     }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MemoryGameContent(drawerState: DrawerState, viewModel: MemoryViewModel) {
+fun MemoryGameContent(drawerState: DrawerState, viewModel: MemoryViewModel, alarmRing: AlarmRing) {
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
@@ -90,7 +93,7 @@ fun MemoryGameContent(drawerState: DrawerState, viewModel: MemoryViewModel) {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        MemoryScreen(viewModel = viewModel)
+                        MemoryScreen(viewModel = viewModel, alarmRing = alarmRing)
                     }
                 }
             }
