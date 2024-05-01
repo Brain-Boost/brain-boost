@@ -277,7 +277,7 @@ class AlarmClock : ComponentActivity() {
         Box(
             modifier = Modifier
                 // .padding(4.dp)
-                .background(Colors.pink33) // Light gray background; change the color as needed
+                .background(Colors.lightBlue) // Light gray background; change the color as needed
                 .fillMaxWidth()
                 .padding(16.dp) // Padding inside the box around the content
         ) {
@@ -295,7 +295,7 @@ class AlarmClock : ComponentActivity() {
                         selectedNumber = numberOfHours,
                         onNumberChange = onHoursChange
                     )
-                    Text(text = ":", fontSize = 30.sp, textAlign = TextAlign.Center)
+                    Text(text = ":", fontSize = 30.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
                     TimeSelectionColumn(
                         label = "M",
                         range = 0..59,
@@ -373,7 +373,7 @@ class AlarmClock : ComponentActivity() {
             horizontalArrangement = Arrangement.Start,
             //modifier = Modifier.fillMaxWidth().padding(16.dp)
         ) {
-            Text(text = "AM/PM: ", color = Color.Black, modifier = Modifier.padding(end = 8.dp))
+            Text(text = "AM/PM: ", color = Color.Black, modifier = Modifier.padding(end = 8.dp), fontWeight = FontWeight.Bold)
             // AM if the switch is checked, PM if not
             Switch(
                 checked = mSelectedText == "PM",
@@ -400,7 +400,7 @@ class AlarmClock : ComponentActivity() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
-            Text(text = "Off/On", color = Color.Black, modifier = Modifier.padding(end = 8.dp))
+            Text(text = "OFF/ON", color = Color.Black, modifier = Modifier.padding(end = 8.dp), fontWeight = FontWeight.Bold)
             Switch(
                 checked = mCheckedState,
                 onCheckedChange = { isChecked ->
@@ -453,9 +453,9 @@ class AlarmClock : ComponentActivity() {
 
         alarm?.let {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Current Alarm: ${it.hour}:${it.minute} ${it.meridian}")
+                Text("Current Alarm: ${it.hour}:${it.minute} ${it.meridian}", fontWeight = FontWeight.Bold)
             }
-        } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp))
+        } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp), fontWeight = FontWeight.Bold)
     }
 
 

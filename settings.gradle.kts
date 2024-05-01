@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BrainBoost"
+rootProject.name = "brainboost"
 include(":app")
