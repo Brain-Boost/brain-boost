@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import com.example.brainboost.ui.theme.Colors
 import com.example.brainboost.HomePage
 import com.example.brainboost.AlarmClock
+import com.example.brainboost.games.memoryGame.memoryFeature.presentation.MemoryGameHowToPlay
 import com.example.brainboost.games.ttt.TTTHowToPlay
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.brainboost.ui.theme.TicTacToeOpener
@@ -66,6 +67,9 @@ fun FlexibleDrawer(
                         }
                         "How to Play" -> {
                             context.startActivity(Intent(context, TTTHowToPlay::class.java))
+                        }
+                        "How to play" -> {
+                            context.startActivity(Intent(context, MemoryGameHowToPlay::class.java))
                         }
                         // Add other cases for different navigation items
                     }

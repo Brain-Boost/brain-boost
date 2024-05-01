@@ -48,6 +48,10 @@
             android:exported="true"
             android:theme="@style/Theme.brainboost"/>
         <activity
+            android:name=".games.memoryGame.memoryFeature.presentation.MemoryGameHowToPlay"
+            android:exported="true"
+            android:theme="@style/Theme.brainboost"/>
+        <activity
             android:name=".HomePage"
             android:exported="true"
             android:theme="@style/Theme.brainboost">
