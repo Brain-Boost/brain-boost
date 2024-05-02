@@ -2,6 +2,7 @@ package com.example.brainboost.ui.theme
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -41,13 +42,16 @@ import com.example.brainboost.games.wurdle.usecase.ResetLevels
 import com.example.brainboost.games.wurdle.viewmodel.LevelsViewModel
 import com.example.brainboost.nav.FlexibleDrawer
 import com.example.brainboost.nav.NavigationItem
+import com.example.brainboost.ringer.AlarmRing
 import com.example.brainboost.ui.theme.Colors.lightBlueBackground
 import kotlinx.coroutines.launch
 
 class WurdleGame : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        lateinit var alarmRing: AlarmRing
         super.onCreate(savedInstanceState)
         setContent {
+            val alarmRing = AlarmRing.getInstance(this)
             // Here you get the SharedPreferences
             val sharedPreferences: SharedPreferences = getSharedPreferences("default", MODE_PRIVATE)
 
@@ -78,7 +82,7 @@ class WurdleGame : ComponentActivity() {
                 selectedItem = selectedItem
             ) { drawerState ->
                 // This is the main content of your drawer, which is the Wurdle game
-                WurdleContent(drawerState, levelViewModel, getWordStatus)
+                WurdleContent(drawerState, levelViewModel, getWordStatus, alarmRing)
             }
         }
     }
@@ -89,7 +93,8 @@ class WurdleGame : ComponentActivity() {
 fun WurdleContent(
     drawerState: DrawerState,
     levelViewModel: LevelsViewModel,
-    getWordStatus: GetWordStatus
+    getWordStatus: GetWordStatus,
+    alarmRing: AlarmRing
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -122,7 +127,8 @@ fun WurdleContent(
                         val level = levelViewModel.state().collectAsState().value.currentLevel
                         if (level != null) {
                             WordScreen(level, getWordStatus) {
-                                levelViewModel.levelPassed()
+                                Log.d("Wurdle-Stuff",  "Maybe level ended?")
+                                levelViewModel.levelPassed(alarmRing)
                             }
                         } else {
                             GameCompletionScreen(levelViewModel)
