@@ -16,10 +16,12 @@ class AlarmCreate(private val context: Context) {
 
     fun setAlarm(alarm: Alarm) {
         if (alarm.status) {
+            // Note: This is the code that is taking users to the permissions check when clicking "On" for an alarm.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
                 val intent = Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // Add this line
                 context.startActivity(intent)
+                Log.d("Permission", "Requested AlarmCreate permission.")
                 return
             }
             

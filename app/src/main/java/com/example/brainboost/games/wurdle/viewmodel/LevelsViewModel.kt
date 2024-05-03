@@ -1,9 +1,11 @@
 package com.example.brainboost.games.wurdle.viewmodel
 
+import android.util.Log
 import com.example.brainboost.games.wurdle.models.Level
 import com.example.brainboost.games.wurdle.repository.LevelRepository
 import com.example.brainboost.games.wurdle.usecase.GetNextLevel
 import com.example.brainboost.games.wurdle.usecase.ResetLevels
+import com.example.brainboost.ringer.AlarmRing
 
 class LevelsViewModel(
     private val levelRepository: LevelRepository,
@@ -20,9 +22,14 @@ class LevelsViewModel(
         updateLevel()
     }
 
-    fun levelPassed() {
+    fun levelPassed(alarmRing: AlarmRing) {
+        Log.d("Wurdle-Stuff", "Wurdle win condition met!")
         currentState().currentLevel?.let { levelRepository.levelPassed(it) }
+        if (alarmRing.isPlaying()) {
+            alarmRing.stopRingtone()
+        }
         updateLevel()
+
     }
 
     private fun updateLevel() {
