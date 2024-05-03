@@ -1,4 +1,4 @@
-package com.example.brainboost
+package com.example.brainboost.games.ttt
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -61,6 +61,25 @@ fun Tictactoe(
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.headlineMedium
         )
+
+        // Display the current difficulty level
+        Text("Current Difficulty: ${viewModel.currentDifficulty.name}")
+
+        // Buttons to adjust the difficulty level
+        Row(
+            modifier = Modifier.padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(onClick = { viewModel.currentDifficulty = Difficulty.EASY }) {
+                Text("Easy")
+            }
+            Button(onClick = { viewModel.currentDifficulty = Difficulty.MEDIUM }) {
+                Text("Medium")
+            }
+            Button(onClick = { viewModel.currentDifficulty = Difficulty.HARD }) {
+                Text("Hard")
+            }
+        }
 
         BuildRow(rowId = 1, viewModel = viewModel)
         BuildRow(rowId = 2, viewModel = viewModel)

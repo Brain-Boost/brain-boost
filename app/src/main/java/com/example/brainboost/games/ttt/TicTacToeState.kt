@@ -1,10 +1,10 @@
-package com.example.brainboost
+package com.example.brainboost.games.ttt
 
 data class TicTicToeState(
     val buttonValues: Array<String> = arrayOf("-","-","-","-","-","-","-","-","-"),
     val buttonWinners: Array<Boolean> = arrayOf(false,false,false,false,false,false,false,false,false),
     val isXTurn : Boolean = true,
-    val victor : String? = null
+    var victor : String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
