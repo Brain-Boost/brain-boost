@@ -25,8 +25,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.example.brainboost.TicTacToeViewModel
-import com.example.brainboost.Tictactoe
+import com.example.brainboost.games.ttt.TicTacToeViewModel
+import com.example.brainboost.games.ttt.Tictactoe
 import com.example.brainboost.nav.FlexibleDrawer
 import com.example.brainboost.nav.NavigationItem
 import com.example.brainboost.ringer.AlarmRing
