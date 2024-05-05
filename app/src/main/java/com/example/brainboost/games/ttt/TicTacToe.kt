@@ -21,8 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.brainboost.ringer.AlarmRing
+import com.example.brainboost.ui.theme.Colors
 
-private val lightBlue = Color(0xFFADD8E6)
 
 @Composable
 fun Tictactoe(
@@ -32,7 +32,7 @@ fun Tictactoe(
 ){
     val state = viewModel.state.value
     Column(
-        modifier.background(lightBlue).fillMaxSize(),
+        modifier.background(Colors.lightBlue).fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
