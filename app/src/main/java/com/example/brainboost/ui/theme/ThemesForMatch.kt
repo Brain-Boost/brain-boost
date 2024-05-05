@@ -20,22 +20,22 @@ interface HolidayTheme {
 
 class BrainBoostTheme(
     override val backgroundPortrait: Int = R.drawable.background_portrait_blue,
-    override val backgroundLandscape: Int = R.drawable.background_landscape_thanksgiving,
+    override val backgroundLandscape: Int = R.drawable.bg_ls_blue,
     override val cardback: Int = R.drawable.bb_back_of_card,
     override val cardBaseColor: Color = Colors.tan,
     override val textColor: Color = Colors.white,
     override val cardFrontBaseColor: Color = Colors.blueWhite,
     override val matchedOutlineColor: Color = Colors.darkGreen,
-    override val iconColor: Color = Colors.black,
+    override val iconColor: Color = Colors.blueGray,
     override val imageMap: Map<Int, Int> = mapOf(
         1 to R.drawable.brain_boost_for_card,
         2 to R.drawable.brain1,
         3 to R.drawable.brain2,
         4 to R.drawable.brain3,
         5 to R.drawable.brain4,
-        6 to R.drawable.bb6,
-        7 to R.drawable.bb7,
-        8 to R.drawable.bb8,
+        6 to R.drawable.brain5,
+        7 to R.drawable.brain6,
+        8 to R.drawable.brain7,
         9 to R.drawable.bb9,
     )
 ): HolidayTheme {
@@ -43,28 +43,28 @@ class BrainBoostTheme(
         return imageMap[number]
     }
     override fun getNextTheme(): HolidayTheme {
-        return BrainBoostTheme()
+        return BrainBoostPinkTheme()
     }
 }
-class HalloweenTheme(
-    override val backgroundPortrait: Int = R.drawable.background_portrait_halloween,
-    override val backgroundLandscape: Int = R.drawable.background_landscape_halloween,
-    override val cardBaseColor: Color = Color.Black,
-    override val cardback: Int = R.drawable.cardback_halloween,
-    override val textColor: Color = Colors.blueWhite,
-    override val cardFrontBaseColor: Color = Colors.blueWhite,
+class BrainBoostPinkTheme(
+    override val backgroundPortrait: Int = R.drawable.background_portrait_pink,
+    override val backgroundLandscape: Int = R.drawable.bg_ls_pink,
+    override val cardback: Int = R.drawable.bb_back_of_card_blue,
+    override val cardBaseColor: Color = Colors.tan,
+    override val textColor: Color = Colors.white,
+    override val cardFrontBaseColor: Color = Colors.pink33,
     override val matchedOutlineColor: Color = Colors.darkGreen,
-    override val iconColor: Color = Colors.orange,
+    override val iconColor: Color = Colors.pink33,
     override val imageMap: Map<Int, Int> = mapOf(
-        1 to R.drawable.hw1,
-        2 to R.drawable.hw2,
-        3 to R.drawable.hw3,
-        4 to R.drawable.hw4,
-        5 to R.drawable.hw5,
-        6 to R.drawable.hw6,
-        7 to R.drawable.hw7,
-        8 to R.drawable.hw8,
-        9 to R.drawable.hw9
+        1 to R.drawable.brain_boost_for_card,
+        2 to R.drawable.brain1,
+        3 to R.drawable.brain2,
+        4 to R.drawable.brain3,
+        5 to R.drawable.brain4,
+        6 to R.drawable.brain5,
+        7 to R.drawable.brain6,
+        8 to R.drawable.brain7,
+        9 to R.drawable.bb9,
     )
 ) : HolidayTheme {
     override fun getImageResourceForNumber(number: Int): Int? {
@@ -72,6 +72,6 @@ class HalloweenTheme(
     }
 
     override fun getNextTheme(): HolidayTheme {
-        return HalloweenTheme()
+        return BrainBoostTheme()
     }
 }
