@@ -24,7 +24,7 @@ class TTTHowToPlay : ComponentActivity() {
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
                     text = """
-                Hot to play Tic Tac Toe
+                How to play Tic Tac Toe
             """.trimIndent()
                 )
 
