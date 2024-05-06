@@ -3,4 +3,15 @@
     <string name="title_activity_second">AlarmPage</string>
     <string name="title_activity_tic_tac_toe">TicTacToe</string>
     <string name="title_activity_wurdle_game">WurdleGame</string>
+    <string name="onBoardingTitle1">Welcome to Brain Boost!</string>
+    <string name="onBoardingText1">Enjoy a brand-new experience of using an alarm clock!</string>
+    <string name="onBoardingTitle2">Click on the clock icon to set up an alarm</string>
+    <string name="onBoardingText2">A must-have for you to start your busy day</string>
+    <string name="onBoardingTitle3">Play any of these mini games to refresh your brain whenever you want</string>
+    <string name="onBoardingText3">And try different difficulty levels!</string>
+    <string name="onBoardingTitle4">Click here to open Navigation menu</string>
+    <string name="onBoardingText4">Quick access to any sections of the app</string>
+    <string name="onBoardingTitle5">That\'s it for the tutorial!</string>
+    <string name="onBoardingText5">Enjoy your time of using Brain Boost!</string>
+
 </resources>
