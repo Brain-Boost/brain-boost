@@ -146,7 +146,7 @@ class HomePage : ComponentActivity() {
                 // Add a label at the top of the buttons
                 Text(
                     fontWeight = FontWeight.Bold,
-                    text = "Play a Game",
+                    text = "Mini Games",
                     color = Color.Black,
                     fontSize = 30.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
