@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
@@ -144,9 +145,10 @@ class HomePage : ComponentActivity() {
             ) {
                 // Add a label at the top of the buttons
                 Text(
+                    fontWeight = FontWeight.Bold,
                     text = "Play a Game",
                     color = Color.Black,
-                    fontSize = 24.sp,
+                    fontSize = 30.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
@@ -261,7 +263,8 @@ class HomePage : ComponentActivity() {
         {
             Text(
                 text = "Alarms",
-                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(top = 16.dp)
             )
