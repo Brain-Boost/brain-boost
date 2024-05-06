@@ -81,7 +81,7 @@ fun MemoryGameContent(drawerState: DrawerState, viewModel: MemoryViewModel, alar
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Colors.memBlueBackground // Set your desired color here
+                    containerColor = Colors.lightBlue // Set your desired color here
                 )
             )
         },

@@ -22,6 +22,7 @@ class MemoryGameHowToPlay : ComponentActivity() {
     fun HTP1() {
         Text(
             fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(8.dp),
             fontSize = 30.sp,
             text = """
                 How To Play The Memory Game
@@ -107,8 +108,6 @@ class MemoryGameHowToPlay : ComponentActivity() {
                 
             CONGRATULATIONS YOU CAN NOW PLAY THE MEMORY GAME 
             
-            and hopefully also turn off your alarm
-                                      (o_O)
         """.trimIndent()
         )
     }
