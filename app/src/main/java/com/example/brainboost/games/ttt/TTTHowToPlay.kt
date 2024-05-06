@@ -22,6 +22,7 @@ class TTTHowToPlay : ComponentActivity() {
             fun HTP() {
                 Text(
                     fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(15.dp),
                     fontSize = 30.sp,
                     text = """
                 How to play Tic Tac Toe

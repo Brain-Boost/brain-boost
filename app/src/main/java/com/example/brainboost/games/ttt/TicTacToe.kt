@@ -32,7 +32,9 @@ fun Tictactoe(
 ){
     val state = viewModel.state.value
     Column(
-        modifier.background(Colors.lightBlue).fillMaxSize(),
+        modifier
+            .background(Colors.lightBlue)
+            .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -70,14 +72,20 @@ fun Tictactoe(
             modifier = Modifier.padding(vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = { viewModel.currentDifficulty = Difficulty.EASY }) {
-                Text("Easy")
+            Column (modifier = Modifier.padding(end = 8.dp)){
+                Button(onClick = { viewModel.currentDifficulty = Difficulty.EASY }) {
+                    Text("Easy")
+                }
             }
-            Button(onClick = { viewModel.currentDifficulty = Difficulty.MEDIUM }) {
-                Text("Medium")
+            Column (modifier = Modifier.padding(end = 8.dp)){
+                Button(onClick = { viewModel.currentDifficulty = Difficulty.MEDIUM }) {
+                    Text("Medium")
+                }
             }
-            Button(onClick = { viewModel.currentDifficulty = Difficulty.HARD }) {
-                Text("Hard")
+            Column (modifier = Modifier.padding(end = 8.dp)){
+                Button(onClick = { viewModel.currentDifficulty = Difficulty.HARD }) {
+                    Text("Hard")
+                }
             }
         }
 
