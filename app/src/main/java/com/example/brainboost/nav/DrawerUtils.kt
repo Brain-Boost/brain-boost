@@ -21,6 +21,7 @@ import com.example.brainboost.HomePage
 import com.example.brainboost.AlarmClock
 import com.example.brainboost.games.memoryGame.memoryFeature.presentation.MemoryGameHowToPlay
 import com.example.brainboost.games.ttt.TTTHowToPlay
+import com.example.brainboost.games.wurdle.gamescreens.WurdleHowToPlay
 import com.example.brainboost.memoryGame.memoryFeature.presentation.MemoryGame
 import com.example.brainboost.ui.theme.TicTacToeOpener
 import com.example.brainboost.ui.theme.WurdleGame
@@ -65,11 +66,14 @@ fun FlexibleDrawer(
                         "Wurdle" -> {
                             context.startActivity(Intent(context, WurdleGame::class.java))
                         }
-                        "How to Play" -> {
+                        "How to play Tic Tac Toe" -> {
                             context.startActivity(Intent(context, TTTHowToPlay::class.java))
                         }
-                        "How to play" -> {
+                        "How to play Memory Game" -> {
                             context.startActivity(Intent(context, MemoryGameHowToPlay::class.java))
+                        }
+                        "How to play Wurdle" -> {
+                            context.startActivity(Intent(context, WurdleHowToPlay::class.java))
                         }
                         // Add other cases for different navigation items
                     }

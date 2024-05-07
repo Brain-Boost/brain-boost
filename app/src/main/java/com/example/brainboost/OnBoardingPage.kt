@@ -20,12 +20,12 @@ class OnBoardingPage : ComponentActivity() {
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (getSystemService(AlarmManager::class.java).canScheduleExactAlarms()) {
                 startActivity(Intent(this, HomePage::class.java))
                 return
             }
-        }
+        }*/
 
         setContent {
             MaterialTheme {
