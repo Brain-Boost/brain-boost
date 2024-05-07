@@ -47,7 +47,7 @@ class MemoryGame:ComponentActivity() {
                 NavigationItem("Alarms", Icons.Filled.Notifications),
                 NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
                 NavigationItem("Wurdle", Icons.Filled.PlayArrow),
-                NavigationItem("How to play", Icons.Filled.Info)
+                NavigationItem("How to play Memory Game", Icons.Filled.Info)
                 // Add other items here...
             )
             val selectedItem = items.first()

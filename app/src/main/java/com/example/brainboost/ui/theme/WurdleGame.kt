@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
@@ -68,7 +69,8 @@ class WurdleGame : ComponentActivity() {
                 NavigationItem("Home", Icons.Filled.Home),
                 NavigationItem("Alarms", Icons.Filled.Notifications),
                 NavigationItem("Tic-Tac-Toe", Icons.Filled.PlayArrow),
-                NavigationItem("Memory-Game", Icons.Filled.PlayArrow)
+                NavigationItem("Memory-Game", Icons.Filled.PlayArrow),
+                NavigationItem("How to play Wurdle", Icons.Filled.Info)
                 // Add other items here...
             )
 

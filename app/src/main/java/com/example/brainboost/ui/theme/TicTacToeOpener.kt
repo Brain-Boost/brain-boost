@@ -43,7 +43,7 @@ class TicTacToeOpener : ComponentActivity() {
                 NavigationItem("Alarms", Icons.Filled.Notifications),
                 NavigationItem("Memory-Game", Icons.Filled.PlayArrow),
                 NavigationItem("Wurdle", Icons.Filled.PlayArrow),
-                NavigationItem("How to Play", Icons.Filled.Info)
+                NavigationItem("How to play Tic Tac Toe", Icons.Filled.Info)
                 // Add other items here...
             )
             val selectedItem = items.first()
