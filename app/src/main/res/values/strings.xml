@@ -11,7 +11,11 @@
     <string name="onBoardingText3">And try different difficulty levels!</string>
     <string name="onBoardingTitle4">Click here to open Navigation menu</string>
     <string name="onBoardingText4">Quick access to any sections of the app</string>
-    <string name="onBoardingTitle5">That\'s it for the tutorial!</string>
-    <string name="onBoardingText5">Enjoy your time of using Brain Boost!</string>
+    <string name="onBoardingTitle5">A "How to play" Section will be in the menu for each game</string>
+    <string name="onBoardingText5">We \'re always here to help</string>
+    <string name="onBoardingTitle6">Enable your permissions first</string>
+    <string name="onBoardingText6">We are going to guide you to allow alarm permissions in a few steps</string>
+    <string name="onBoardingTitle7">That\'s it for the tutorial!</string>
+    <string name="onBoardingText7">Enjoy your time of using Brain Boost! \n Click "skip" button on the top to go to the next page for alarm permissions</string>
 
 </resources>

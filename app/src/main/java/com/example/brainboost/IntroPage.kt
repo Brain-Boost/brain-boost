@@ -41,7 +41,7 @@ class IntroPage : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Hello User, and welcome to Brain Boost! To get started, we'll need just a couple of permissions first.")
+            Text("Hello new user, welcome to Brain Boost! To get started, we'll need just a couple of permissions first.")
             Spacer(modifier = Modifier.height(20.dp))
             Button(onClick = {
                 requestAlarmPermission(context)
@@ -64,4 +64,5 @@ class IntroPage : ComponentActivity() {
         startActivity(Intent(this, HomePage::class.java))
         finish()
     }
+
 }
