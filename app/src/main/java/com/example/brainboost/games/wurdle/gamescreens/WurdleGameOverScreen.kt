@@ -18,35 +18,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.brainboost.games.wurdle.viewmodel.GameViewModel
+import com.example.brainboost.games.wurdle.models.Level
 
 @Composable
 @OptIn(ExperimentalAnimationApi::class)
 internal fun BoxScope.GameOverScreen(
     state: GameViewModel.State,
     shownLost: () -> Unit,
+    level: Level
 ) {
 
     AnimatedVisibility(state.game.isOver, modifier = Modifier.fillMaxSize(),
         enter = fadeIn(), exit = fadeOut()
     ) {
-
+        val realWord = level.word.word
         Box(Modifier
             .fillMaxSize()
-            .background(Color(0x7F000000))
+            //.background(Color(0x7F000000))
             .clickable {
                 shownLost()
             }
             .padding(16.dp)
             .wrapContentHeight()
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.error),
             Alignment.Center) {
-            Text(text = "You lost. Tap to retry.",
+            Text(text = "You lost. The word is: \n" + realWord + "\nTap to retry.",
                 color = MaterialTheme.colorScheme.onError,
                 modifier = Modifier.padding(32.dp),
                 style = MaterialTheme.typography.headlineMedium,

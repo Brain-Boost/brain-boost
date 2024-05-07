@@ -120,12 +120,17 @@ private fun KeyboardKey(
 ) {
     val color by animateColorAsState(targetValue = when (status) {
         EqualityStatus.Incorrect -> MaterialTheme.colorScheme.keyboardDisabled
+        EqualityStatus.WrongPosition -> MaterialTheme.colorScheme.wrongPositionBackground
+        EqualityStatus.Correct -> MaterialTheme.colorScheme.correctBackground
         else -> MaterialTheme.colorScheme.keyboard
     })
     val testColor by animateColorAsState(targetValue = when (status) {
-        EqualityStatus.WrongPosition -> MaterialTheme.colorScheme.wrongPositionBackground
-        EqualityStatus.Correct -> MaterialTheme.colorScheme.correctBackground
-        EqualityStatus.Incorrect, null -> MaterialTheme.colorScheme.onKeyboard
+        /*EqualityStatus.WrongPosition -> MaterialTheme.colorScheme.wrongPositionBackground
+        EqualityStatus.Correct -> MaterialTheme.colorScheme.correctBackground*/
+        EqualityStatus.Incorrect -> MaterialTheme.colorScheme.onKeyboard
+        EqualityStatus.WrongPosition -> MaterialTheme.colorScheme.onKeyboard
+        EqualityStatus.Correct -> MaterialTheme.colorScheme.onKeyboard
+        else -> MaterialTheme.colorScheme.onKeyboard
     })
     val context = LocalContext.current
     Box(modifier

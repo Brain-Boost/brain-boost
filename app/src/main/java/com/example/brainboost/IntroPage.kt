@@ -64,5 +64,4 @@ class IntroPage : ComponentActivity() {
         startActivity(Intent(this, HomePage::class.java))
         finish()
     }
-
 }
