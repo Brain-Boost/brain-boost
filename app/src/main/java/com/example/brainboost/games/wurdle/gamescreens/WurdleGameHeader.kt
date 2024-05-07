@@ -40,17 +40,11 @@ internal fun ColumnScope.GameHeader(
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
-    Column(modifier
-        .align(Alignment.CenterHorizontally)) {
-
-        /*Text(text = "Wurdle",
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.align(
-                Alignment.CenterHorizontally),
-            fontSize = 40.sp)*/
+    Column(
+        modifier
+            .align(Alignment.CenterHorizontally)
+    ) {
         content()
-
     }
 }
 
@@ -64,7 +58,8 @@ private fun ColumnScope.LevelHeaderContent(
     Row(
         modifier = Modifier.Companion
             .align(
-                Alignment.CenterHorizontally)
+                Alignment.CenterHorizontally
+            )
             .padding(top = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -74,7 +69,7 @@ private fun ColumnScope.LevelHeaderContent(
             fontWeight = FontWeight.Medium,
             fontSize = 30.sp
         )
-        Box(modifier = Modifier.padding(start = 16.dp)) {
+        /*Box(modifier = Modifier.padding(start = 16.dp)) {
             if (!revealing) {
                 Text(text = "(reveal)",
                     style = MaterialTheme.typography.labelSmall,
@@ -88,7 +83,6 @@ private fun ColumnScope.LevelHeaderContent(
                         onRevealChanged(false)
                     })
             }
-        }
-
+        }*/
     }
 }

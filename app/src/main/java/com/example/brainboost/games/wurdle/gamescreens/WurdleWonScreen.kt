@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -36,16 +35,16 @@ internal fun WonScreen(
 
         Box(Modifier
             .fillMaxSize()
-            .background(Color(0x7F000000))
+            //.background(Color(0x7F000000))
             .clickable {
                 shownWon()
             }
             .padding(16.dp)
             .wrapContentHeight()
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.primary),
             Alignment.Center) {
-            Text(text = "LEVEL PASSED!",
+            Text(text = "Level passed!\nTap to go to the next level",
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(32.dp),
                 style = MaterialTheme.typography.headlineMedium,

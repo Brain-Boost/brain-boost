@@ -78,10 +78,10 @@ class MemoryGameHowToPlay : ComponentActivity() {
                
                
                
-            Flip the cards over one at a time to see if you get a matched pair.
-            If there is a matched pair then the last flipped card gets a green border signifying that there is a match.
-            If there is no match the two cards that are flipped will flip back over after some time.
-            You win the game once you have matched all the cards that are shown.
+            1. Flip the cards over one at a time to see if you get a matched pair.
+            2. If there is a matched pair then the last flipped card gets a green border signifying that there is a match.
+            3. If there is no match the two cards that are flipped will flip back over after some time.
+            4. You win the game once you have matched all the cards that are shown.
         """.trimIndent()
         )
 
@@ -106,7 +106,7 @@ class MemoryGameHowToPlay : ComponentActivity() {
                 
                 
                 
-            CONGRATULATIONS YOU CAN NOW PLAY THE MEMORY GAME 
+            Have fun playing the Memory Game!!! 
             
         """.trimIndent()
         )

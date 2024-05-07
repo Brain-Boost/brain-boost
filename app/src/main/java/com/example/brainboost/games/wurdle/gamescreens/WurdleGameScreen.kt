@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.brainboost.games.wurdle.models.Game
 import com.example.brainboost.games.wurdle.models.Level
+import com.example.brainboost.games.wurdle.models.Word
 import com.example.brainboost.games.wurdle.usecase.GetWordStatus
 import com.example.brainboost.games.wurdle.viewmodel.GameViewModel
 
@@ -49,6 +50,7 @@ internal fun WordScreen(
         shownLost = {
             viewModel.shownLost()
         })
+        //shownLost = levelCompleted)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -87,7 +89,7 @@ fun GameScreen(
         }
         ErrorScreen(state, shownError)
         WonScreen(state, shownWon)
-        GameOverScreen(state, shownLost)
+        GameOverScreen(state, shownLost, level)
     }
 }
 
