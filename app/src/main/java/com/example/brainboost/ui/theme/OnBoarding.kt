@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.Context
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.estimateAnimationDurationMillis
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -47,7 +49,7 @@ fun OnBoarding() {
 
     val context = LocalContext.current
 
-    Column(modifier = Modifier.fillMaxSize().background(color = Colors.lightBlueBackground)) {
+    Column(modifier = Modifier.fillMaxSize().background(color = Colors.blueWhite)) {
         TopSection(
             onBackClick = {
                 if (pageState.currentPage + 1 > 1) scope.launch {
@@ -90,7 +92,7 @@ fun TopSection(onBackClick: () -> Unit = {}, onSkipClick: () -> Unit = {}, onNex
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp).background(color = Colors.lightBlueBackground)
+            .padding(12.dp).background(color = Colors.blueWhite)
     ) {
         // Back button
         IconButton(onClick = onBackClick, modifier = Modifier.align(Alignment.CenterStart)) {
@@ -113,7 +115,7 @@ fun BottomSection(size: Int, index: Int, onNextClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp).background(color = Colors.lightBlueBackground)
+            .padding(12.dp).background(color = Colors.blueWhite)
     ) {
         // Indicators
         Indicators(size, index)
@@ -181,15 +183,16 @@ fun Indicator(isSelected: Boolean) {
 
 @Composable
 fun OnBoardingItem(items: OnBoardingItems) {
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize().background(color = Colors.lightBlueBackground)
+        modifier = Modifier.fillMaxSize().background(color = Colors.blueWhite)
     ) {
         Image(
             painter = painterResource(id = items.image),
             contentDescription = "brain_boost_logo",
-            modifier = Modifier.padding(start = 50.dp, end = 50.dp)
+            modifier = Modifier.padding(start = 50.dp, end = 50.dp).clip(RoundedCornerShape(30.dp))
         )
 
         Spacer(modifier = Modifier.height(25.dp))
