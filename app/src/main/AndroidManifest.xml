@@ -61,7 +61,7 @@
             android:theme="@style/Theme.brainboost">
         </activity>
         <activity
-            android:name=".permissions.IntroPage"
+            android:name=".IntroPage"
             android:exported="true">
         </activity>
         <activity

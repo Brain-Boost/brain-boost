@@ -1,4 +1,4 @@
-package com.example.brainboost.permissions
+package com.example.brainboost
 
 import android.app.AlarmManager
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -35,6 +35,7 @@ class IntroPage : ComponentActivity() {
 
     private fun checkPermissionsAndNavigate() {
         if (allPermissionsGranted()) {
+            Toast.makeText(this, "All permissions enabled!", Toast.LENGTH_SHORT).show()
             navigateToMain()
         } else {
             showPermissionScreen()
@@ -47,15 +48,12 @@ class IntroPage : ComponentActivity() {
 
     private fun hasAlarmPermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-            alarmManager.canScheduleExactAlarms()
+            getSystemService(AlarmManager::class.java).canScheduleExactAlarms()
         } else true // Assume permission is granted on API levels below S
     }
 
     private fun hasNotificationPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            NotificationManagerCompat.from(this).areNotificationsEnabled()
-        } else true // Notification permission is not required before Android 13
+        return NotificationManagerCompat.from(this).areNotificationsEnabled()
     }
 
     private fun showPermissionScreen() {
@@ -72,8 +70,7 @@ class IntroPage : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("To get started, we'll need to enable a couple of permissions first.",
-                fontWeight = FontWeight.Bold)
+            Text("To get started, we'll need to enable a couple of permissions first.", fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(20.dp))
             Button(onClick = { requestAlarmPermission(context) }) {
                 Text("Enable Alarm Permission", fontWeight = FontWeight.Bold)

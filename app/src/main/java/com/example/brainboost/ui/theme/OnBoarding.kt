@@ -1,9 +1,12 @@
 package com.example.brainboost.ui.theme
 
 import android.content.Intent
+import android.content.Context
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.estimateAnimationDurationMillis
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -27,7 +30,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.brainboost.permissions.IntroPage
+import androidx.core.content.ContextCompat.startActivity
+import com.example.brainboost.HomePage
+import com.example.brainboost.IntroPage
+import com.example.brainboost.ui.theme.Colors
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
