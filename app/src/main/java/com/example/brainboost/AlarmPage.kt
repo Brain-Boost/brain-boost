@@ -453,7 +453,8 @@ class AlarmClock : ComponentActivity() {
 
         alarm?.let {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Current Alarm: ${it.hour}:${it.minute} ${it.meridian}", fontWeight = FontWeight.Bold)
+                val formattedMinute = it.minute.toString().padStart(2, '0')
+                Text("Current Alarm: ${it.hour}:$formattedMinute ${it.meridian}", fontWeight = FontWeight.Bold)
             }
         } ?: Text("No alarms set yet", modifier = Modifier.padding(16.dp), fontWeight = FontWeight.Bold)
     }
